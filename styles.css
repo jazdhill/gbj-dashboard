@@ -91,11 +91,9 @@ strong { color: var(--text); font-weight: 700; }
 }
 tableau-viz {
   display: block;
-  position: absolute;
-  top: calc(-1 * var(--tabs-h));
-  left: 0;
   width: 100%;
   height: calc(100% + var(--tabs-h));
+  margin-top: calc(-1 * var(--tabs-h));
 }
 
 /* ---- Hamburger + menu (top right) ------------------------------------ */
