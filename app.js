@@ -240,10 +240,32 @@ function fillPlaceholders() {
   });
 }
 
+/* ---- Keep the Tableau viz filling the window ---------------------------
+   tableau-viz only sizes itself from its width/height attributes at load
+   time; it doesn't observe CSS or container resizes on its own. We set
+   those attributes to the viewport size on load and again (debounced) on
+   every resize, so the dashboard always fills the window exactly. -------- */
+function fitViz() {
+  const viz = document.getElementById("tableauViz");
+  if (!viz) return;
+  const stage = viz.closest(".viz-stage");
+  const setSize = () => {
+    viz.setAttribute("width", String(stage.clientWidth));
+    viz.setAttribute("height", String(stage.clientHeight));
+  };
+  setSize();
+  let raf;
+  window.addEventListener("resize", () => {
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(setSize);
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   buildChrome();
   buildCountdown();
   fillPlaceholders();
+  fitViz();
   // Wire the full-page feedback form if present
   wireForm(document.querySelector("#feedback-page [data-fb-form]"));
 });
