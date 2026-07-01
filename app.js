@@ -8,10 +8,18 @@ const CONFIG = {
   // What the site is called (used in page titles and the About/Methodology copy).
   siteName: "Good Jobs Dashboard",
 
-  // Where feedback goes. Create a free form at https://formspree.io, then paste
-  // its endpoint here. It emails you each submission and the visitor never
-  // leaves the page. (A Google Form endpoint can be swapped in the same spot.)
-  formEndpoint: "https://formspree.io/f/YOUR_FORM_ID",
+  // Where feedback goes: submitted invisibly to this Google Form (visitors
+  // never leave the page), which forwards each response to the Trello board
+  // via an Apps Script "on form submit" trigger.
+  googleForm: {
+    id: "1FAIpQLSeqB3PL9fHPLei33-ZMYkSSkOjvlsP9W1tCknitd0GQ3sChPw",
+    entries: {
+      type: "entry.57094035",
+      message: "entry.293152144",
+      email: "entry.841890536",
+      page: "entry.324452247",
+    },
+  },
 
   // Your personal / research site, linked from the About page.
   websiteUrl: "https://example.com",
@@ -100,7 +108,7 @@ function feedbackFormMarkup(idPrefix) {
       <div class="fb-segment">
         <input type="radio" id="${idPrefix}-fb" name="type" value="Feedback" checked>
         <label for="${idPrefix}-fb">Give feedback</label>
-        <input type="radio" id="${idPrefix}-bug" name="type" value="Bug report">
+        <input type="radio" id="${idPrefix}-bug" name="type" value="Bug Report">
         <label for="${idPrefix}-bug">Report a bug</label>
       </div>
       <span class="fb-label" for="${idPrefix}-msg">Your note</span>
@@ -173,18 +181,24 @@ function wireForm(form) {
     status.textContent = "Sending…";
 
     try {
-      const res = await fetch(CONFIG.formEndpoint, {
+      const { id, entries } = CONFIG.googleForm;
+      const params = new URLSearchParams();
+      params.set(entries.type, data.type);
+      params.set(entries.message, data.message);
+      params.set(entries.email, data.email);
+      params.set(entries.page, data.page);
+
+      // Google Forms doesn't allow CORS, so the response is opaque (mode: "no-cors").
+      // We can't read a status back — if the request itself doesn't throw, assume it sent.
+      await fetch(`https://docs.google.com/forms/d/e/${id}/formResponse`, {
         method: "POST",
-        headers: { "Content-Type": "application/json", "Accept": "application/json" },
-        body: JSON.stringify(data),
+        mode: "no-cors",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: params.toString(),
       });
-      if (res.ok) {
-        status.className = "fb-status ok";
-        status.textContent = "Thanks — your note is on its way.";
-        form.reset();
-      } else {
-        throw new Error("Request failed");
-      }
+      status.className = "fb-status ok";
+      status.textContent = "Thanks — your note is on its way.";
+      form.reset();
     } catch (err) {
       status.className = "fb-status err";
       status.textContent = "That didn't send. Please try again in a moment.";
