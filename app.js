@@ -33,6 +33,7 @@ function infoIcon() {
 
 /* ---- Build the menu and feedback UI on every page --------------------- */
 const LINKS = [
+  { href: "index.html",       label: "Good Jobs Index" },
   { href: "about.html",       label: "About" },
   { href: "methodology.html", label: "Methodology" },
   { href: "learn.html",       label: "Learn" },
