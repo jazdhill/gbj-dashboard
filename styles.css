@@ -1,0 +1,242 @@
+/* =========================================================================
+   Shared styling for the Good Jobs site.
+   Palette and type are pulled from the dashboard: dark navy ground, warm
+   amber accent, condensed uppercase display headings, humanist body text,
+   and the info-circle icon. Edit the tokens below to retune globally.
+   ========================================================================= */
+
+:root {
+  --bg:        #2a3046;   /* dashboard navy ground */
+  --bg-deep:   #222840;   /* panels, menus, modals */
+  --panel:     #333b57;   /* lifted surface */
+  --amber:     #e7a24a;   /* headings, icon, links */
+  --amber-deep:#d98f38;   /* hovers, eyebrows */
+  --amber-soft:rgba(231,162,74,.28);
+  --text:      #edeff5;
+  --muted:     #a7adc2;
+  --line:      rgba(231,162,74,.22);  /* thin amber hairline, a dashboard motif */
+  --radius:    8px;
+  --maxw:      760px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---- Type ------------------------------------------------------------- */
+h1, h2, h3, .eyebrow, .display {
+  font-family: "Oswald", "Lato", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: .02em;
+  color: var(--amber);
+  font-weight: 600;
+  line-height: 1.08;
+}
+
+.eyebrow {
+  font-size: .8rem;
+  letter-spacing: .2em;
+  color: var(--amber-deep);
+  margin-bottom: .7rem;
+}
+
+.page-title { font-size: clamp(2.1rem, 5vw, 3.3rem); margin-bottom: 1.3rem; }
+h2 { font-size: 1.35rem; margin: 2rem 0 .8rem; letter-spacing: .04em; }
+
+p { margin: 0 0 1.1rem; }
+.lead { font-size: 1.12rem; }
+.muted { color: var(--muted); }
+
+a { color: var(--amber); text-decoration: underline; text-underline-offset: 3px; }
+a:hover { color: var(--amber-deep); }
+
+strong { color: var(--text); font-weight: 700; }
+
+/* ---- Content page shell ---------------------------------------------- */
+.page-wrap {
+  min-height: 100%;
+  padding: clamp(72px, 11vh, 128px) 24px 128px;
+  display: flex;
+  justify-content: center;
+}
+.content { width: 100%; max-width: var(--maxw); }
+
+/* A boxed panel with the dashboard's thin amber border */
+.panel {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255,255,255,.015);
+  padding: 22px 24px;
+}
+
+/* ---- Full-screen viz stage (home) ------------------------------------ */
+.viz-stage { position: fixed; inset: 0; background: var(--bg); overflow: hidden; }
+tableau-viz { display: block; width: 100%; height: 100%; }
+
+/* ---- Hamburger + menu (top right) ------------------------------------ */
+.nav-toggle {
+  position: fixed; top: 18px; right: 18px; z-index: 60;
+  width: 44px; height: 44px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--bg-deep);
+  border: 1px solid var(--amber-soft);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+.nav-toggle span, .nav-toggle span::before, .nav-toggle span::after {
+  content: ""; display: block; width: 20px; height: 2px;
+  background: var(--amber); border-radius: 2px; position: relative;
+  transition: transform .2s ease, opacity .2s ease;
+}
+.nav-toggle span::before { position: absolute; top: -6px; }
+.nav-toggle span::after  { position: absolute; top:  6px; }
+.nav-toggle[aria-expanded="true"] span { background: transparent; }
+.nav-toggle[aria-expanded="true"] span::before { transform: translateY(6px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] span::after  { transform: translateY(-6px) rotate(-45deg); }
+
+.nav-menu {
+  position: fixed; top: 70px; right: 18px; z-index: 59;
+  min-width: 210px;
+  background: var(--bg-deep);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 8px;
+  box-shadow: 0 12px 40px rgba(0,0,0,.35);
+  transform-origin: top right;
+  transition: opacity .18s ease, transform .18s ease;
+}
+.nav-menu[hidden] { display: block; opacity: 0; transform: scale(.96); pointer-events: none; }
+.nav-menu a {
+  display: block; padding: 10px 12px; border-radius: 6px;
+  color: var(--text); text-decoration: none;
+  font-family: "Oswald", sans-serif; text-transform: uppercase;
+  letter-spacing: .1em; font-size: .82rem;
+}
+.nav-menu a:hover { background: rgba(231,162,74,.12); color: var(--amber); }
+.nav-menu a[aria-current="page"] { color: var(--amber); }
+.nav-menu a[aria-current="page"]::before { content: "— "; color: var(--amber-deep); }
+
+/* ---- Feedback floating button (bottom right) ------------------------- */
+.fab {
+  position: fixed; right: 20px; bottom: 20px; z-index: 60;
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: var(--bg-deep);
+  border: 1px solid var(--amber-soft);
+  color: var(--text);
+  padding: .55rem .9rem .55rem .7rem;
+  border-radius: 999px; cursor: pointer;
+  font-family: "Oswald", sans-serif; text-transform: uppercase;
+  letter-spacing: .08em; font-size: .78rem;
+}
+.fab:hover { border-color: var(--amber); }
+.fab svg { width: 20px; height: 20px; display: block; }
+
+/* ---- Modal ------------------------------------------------------------ */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 80;
+  background: rgba(16,19,32,.55);
+  -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px);
+  display: flex; align-items: center; justify-content: center; padding: 24px;
+  transition: opacity .18s ease;
+}
+.modal-overlay[hidden] { display: flex; opacity: 0; pointer-events: none; }
+.modal {
+  background: var(--bg-deep);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  width: 100%; max-width: 440px; padding: 24px;
+}
+.modal-head { display: flex; align-items: center; gap: .6rem; margin-bottom: .3rem; }
+.modal-head svg { width: 24px; height: 24px; }
+.modal-title { font-size: 1.25rem; }
+.modal-close {
+  margin-left: auto; background: none; border: none; color: var(--muted);
+  font-size: 1.4rem; line-height: 1; cursor: pointer;
+}
+.modal-close:hover { color: var(--text); }
+
+/* ---- Feedback form (shared by modal + full page) --------------------- */
+.fb-form { margin-top: 1rem; }
+.fb-label {
+  display: block; font-family: "Oswald", sans-serif; text-transform: uppercase;
+  letter-spacing: .12em; font-size: .74rem; color: var(--muted); margin-bottom: .55rem;
+}
+.fb-segment { display: flex; gap: 8px; margin-bottom: 1.1rem; }
+.fb-segment label {
+  flex: 1; text-align: center; cursor: pointer;
+  border: 1px solid var(--amber-soft); border-radius: 6px;
+  padding: .55rem .5rem; font-size: .9rem; color: var(--muted);
+  transition: background .15s ease, color .15s ease, border-color .15s ease;
+}
+.fb-segment input { position: absolute; opacity: 0; pointer-events: none; }
+.fb-segment input:checked + label,
+.fb-segment label:hover { color: var(--text); border-color: var(--amber); background: rgba(231,162,74,.12); }
+.fb-segment input:focus-visible + label { outline: 2px solid var(--amber); outline-offset: 2px; }
+
+.fb-input, .fb-textarea {
+  width: 100%; background: var(--bg); color: var(--text);
+  border: 1px solid var(--amber-soft); border-radius: 6px;
+  padding: .7rem .8rem; font: inherit; margin-bottom: 1rem;
+}
+.fb-textarea { min-height: 130px; resize: vertical; }
+.fb-input::placeholder, .fb-textarea::placeholder { color: #7d8399; }
+.fb-input:focus, .fb-textarea:focus { outline: none; border-color: var(--amber); }
+
+.fb-submit {
+  background: var(--amber); color: #23283c; border: none; border-radius: 6px;
+  padding: .7rem 1.4rem; cursor: pointer;
+  font-family: "Oswald", sans-serif; text-transform: uppercase; letter-spacing: .08em;
+  font-size: .85rem; font-weight: 600;
+}
+.fb-submit:hover { background: var(--amber-deep); }
+.fb-submit:disabled { opacity: .6; cursor: default; }
+.fb-status { margin-top: .9rem; font-size: .92rem; min-height: 1.2rem; }
+.fb-status.ok  { color: var(--amber); }
+.fb-status.err { color: #f0a5a5; }
+
+/* ---- Countdown (About) ------------------------------------------------ */
+.countdown { display: flex; gap: 14px; margin: 1.4rem 0 .4rem; flex-wrap: wrap; }
+.count-cell {
+  border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 14px 18px; min-width: 92px; text-align: center;
+  background: rgba(255,255,255,.015);
+}
+.count-num { font-family: "Oswald", sans-serif; font-size: 2rem; color: var(--amber); line-height: 1; }
+.count-lab { font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-top: .4rem; }
+
+/* ---- Learn feed ------------------------------------------------------- */
+.feed { display: grid; gap: 16px; margin-top: 1.6rem; }
+.card {
+  border: 1px solid var(--line); border-radius: var(--radius);
+  background: rgba(255,255,255,.015); padding: 18px 20px;
+}
+.card-eyebrow {
+  font-family: "Oswald", sans-serif; text-transform: uppercase; letter-spacing: .14em;
+  font-size: .72rem; color: var(--amber-deep); margin-bottom: .45rem;
+}
+.card-title { font-size: 1.15rem; margin-bottom: .4rem; }
+.card-title a { text-decoration: none; }
+.card-title a:hover { text-decoration: underline; }
+.card-blurb { color: var(--muted); margin-bottom: .6rem; }
+.card-link { font-size: .9rem; }
+
+/* ---- Utility ---------------------------------------------------------- */
+.back-home {
+  display: inline-block; margin-top: 2.4rem;
+  font-family: "Oswald", sans-serif; text-transform: uppercase;
+  letter-spacing: .1em; font-size: .8rem; text-decoration: none;
+}
+
+:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}

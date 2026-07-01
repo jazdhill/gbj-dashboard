@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feedback · Good Jobs Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="feedback">
+  <div class="page-wrap">
+    <div class="content" id="feedback-page">
+      <p class="eyebrow">Feedback</p>
+      <h1 class="page-title">Tell us what you found</h1>
+      <p class="lead">Whether something looks broken or you have an idea to make this more useful,
+        this is the place. Your note comes straight to us.</p>
+
+      <div class="panel" style="margin-top:1.4rem">
+        <form class="fb-form" data-fb-form novalidate>
+          <span class="fb-label">What kind of note is this?</span>
+          <div class="fb-segment">
+            <input type="radio" id="page-fb" name="type" value="Feedback" checked>
+            <label for="page-fb">Give feedback</label>
+            <input type="radio" id="page-bug" name="type" value="Bug report">
+            <label for="page-bug">Report a bug</label>
+          </div>
+
+          <span class="fb-label" for="page-msg">Your note</span>
+          <textarea id="page-msg" class="fb-textarea" name="message"
+            placeholder="Tell us what you noticed…" required></textarea>
+
+          <input class="fb-input" type="email" name="email"
+            placeholder="Email (optional, so we can follow up)">
+
+          <button type="submit" class="fb-submit">Send</button>
+          <div class="fb-status" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+
+      <a class="back-home" href="index.html">← Back to the dashboard</a>
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

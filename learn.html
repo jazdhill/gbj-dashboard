@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learn · Good Jobs Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="learn">
+  <div class="page-wrap">
+    <div class="content">
+      <p class="eyebrow">Learn</p>
+      <h1 class="page-title">Tutorials, updates, and reads</h1>
+      <p class="lead">Short guides on using the dashboard, notes when new data lands, and outside
+        articles worth your time. Newest first.</p>
+
+      <div id="feed" class="feed"></div>
+
+      <a class="back-home" href="index.html">← Back to the dashboard</a>
+    </div>
+  </div>
+
+  <script>
+    /* =====================================================================
+       EDIT THIS LIST to curate the feed. Paste in the ones you want shown.
+       For each item: title, source (where it lives), date (YYYY-MM-DD),
+       url (the link), and a one-line blurb. Order does not matter; the
+       feed sorts by date, newest first.
+       ===================================================================== */
+    const POSTS = [
+      {
+        title: "How to read the good jobs gap in 60 seconds",
+        source: "LinkedIn",
+        date: "2026-06-15",
+        url: "https://www.linkedin.com/",
+        blurb: "A quick walkthrough of the two-circle overview and what the 0.7% really means."
+      },
+      {
+        title: "Why a degree no longer guarantees a middle-class income",
+        source: "Substack",
+        date: "2026-05-28",
+        url: "https://substack.com/",
+        blurb: "The returns-to-education page, unpacked, with the race and gender gaps behind it."
+      },
+      {
+        title: "Recommended read: the vanishing good job without a degree",
+        source: "The New York Times",
+        date: "2026-05-02",
+        url: "https://www.nytimes.com/",
+        blurb: "Outside coverage that pairs well with the Change Over Time view."
+      },
+    ];
+
+    (function renderFeed() {
+      const feed = document.getElementById("feed");
+      const items = POSTS.slice().sort((a, b) => new Date(b.date) - new Date(a.date));
+      if (!items.length) {
+        feed.innerHTML = '<p class="muted">New posts will appear here soon.</p>';
+        return;
+      }
+      const fmt = (d) => new Date(d + "T00:00:00").toLocaleDateString("en-US",
+        { year: "numeric", month: "long", day: "numeric" });
+      feed.innerHTML = items.map(p => `
+        <article class="card">
+          <div class="card-eyebrow">${p.source} · ${fmt(p.date)}</div>
+          <h2 class="card-title"><a href="${p.url}" target="_blank" rel="noopener">${p.title}</a></h2>
+          <p class="card-blurb">${p.blurb}</p>
+          <a class="card-link" href="${p.url}" target="_blank" rel="noopener">Read on ${p.source} →</a>
+        </article>`).join("");
+    })();
+  </script>
+  <script src="app.js"></script>
+</body>
+</html>

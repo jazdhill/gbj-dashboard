@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Good Jobs Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js"></script>
+</head>
+<body data-page="index">
+  <!--
+    Reliable embed: the dashboard fits itself to any screen using Tableau's own
+    responsive engine, so it renders the same for every visitor. The bottom bar
+    stays (that's fine). No custom scaling that can drift between machines.
+  -->
+  <div class="viz-stage">
+    <tableau-viz
+      id="tableauViz"
+      src="https://public.tableau.com/views/GoodJobsDashboardV2_17800951917930/Overview"
+      toolbar="bottom"
+      hide-tabs
+      device="desktop">
+    </tableau-viz>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
