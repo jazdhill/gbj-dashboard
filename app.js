@@ -260,6 +260,10 @@ function loadViz() {
 
   const script = document.createElement("script");
   script.src = "https://public.tableau.com/javascripts/api/viz_v1.js";
+  // The viz does its own internal size adjustment shortly after it finishes
+  // initializing (visible as a correct-then-scrollbar flash on load) —
+  // reassert our sizing a few times after that to win out over it.
+  script.onload = () => [300, 800, 1500, 3000].forEach(delay => setTimeout(fit, delay));
   viz.parentNode.insertBefore(script, viz);
 }
 
