@@ -8,20 +8,37 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=Lato:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-  <script type="module" src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js"></script>
 </head>
 <body data-page="index">
   <!--
-    Reliable embed: the dashboard fits itself to any screen using Tableau's own
-    responsive engine, so it renders the same for every visitor. The bottom bar
-    stays (that's fine). No custom scaling that can drift between machines.
+    Classic Tableau embed (viz_v1.js), sized to the window in app.js.
+    Switched back to this from the tableau-viz web component after the
+    newer Embedding API's sizing attributes/hide-tabs kept producing
+    clipped filters or a stray scrollbar that we couldn't resolve.
   -->
   <div class="viz-stage">
-    <tableau-viz
-      id="tableauViz"
-      src="https://public.tableau.com/views/GoodJobsDashboardV2_17800951917930/Overview"
-      toolbar="bottom">
-    </tableau-viz>
+    <div class='tableauPlaceholder' id='viz1783014308655' style='position: relative'>
+      <noscript>
+        <a href='#'>
+          <img alt=' ' src='https://public.tableau.com/static/images/Go/GoodJobsDashboardV2_17800951917930/Overview/1_rss.png' style='border: none' />
+        </a>
+      </noscript>
+      <object class='tableauViz' style='display:none;'>
+        <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+        <param name='embed_code_version' value='3' />
+        <param name='site_root' value='' />
+        <param name='name' value='GoodJobsDashboardV2_17800951917930&#47;Overview' />
+        <param name='tabs' value='yes' />
+        <param name='toolbar' value='yes' />
+        <param name='static_image' value='https://public.tableau.com/static/images/Go/GoodJobsDashboardV2_17800951917930/Overview/1.png' />
+        <param name='animate_transition' value='yes' />
+        <param name='display_static_image' value='yes' />
+        <param name='display_spinner' value='yes' />
+        <param name='display_overlay' value='yes' />
+        <param name='display_count' value='yes' />
+        <param name='language' value='en-US' />
+      </object>
+    </div>
   </div>
 
   <script src="app.js"></script>

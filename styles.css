@@ -79,23 +79,9 @@ strong { color: var(--text); font-weight: 700; }
 }
 
 /* ---- Full-screen viz stage (home) --------------------------------------
-   hide-tabs (the Tableau attribute) throws off the embed's own Automatic-
-   sizing math, so instead we let Tableau render its story-point tab strip
-   and crop it out visually: the viz is shifted up by --tabs-h and given
-   that much extra height, so the tab strip lands above the visible area
-   and gets clipped by this container's overflow:hidden. ------------------ */
-.viz-stage {
-  --tabs-h: 40px;
-  position: fixed; inset: 0;
-  background: var(--bg);
-  overflow: hidden;
-}
-tableau-viz {
-  display: block;
-  width: 100%;
-  height: calc(100% + var(--tabs-h));
-  margin-top: calc(-1 * var(--tabs-h));
-}
+   Classic embed sized explicitly (in px, via app.js) to match the stage's
+   actual pixel dimensions on load and on every resize. ------------------- */
+.viz-stage { position: fixed; inset: 0; background: var(--bg); overflow: hidden; }
 
 /* ---- Hamburger + menu (top right) ------------------------------------ */
 .nav-toggle {

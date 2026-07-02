@@ -240,19 +240,34 @@ function fillPlaceholders() {
   });
 }
 
-/* ---- Keep the Tableau viz filling the window ---------------------------
-   The dashboard itself is set to Automatic size in Tableau, and tableau-viz
-   fills its container via the width/height:100% rule in styles.css — no JS
-   sizing needed. (We previously forced explicit width/height attributes
-   here to work around the workbook being Fixed size; with it now
-   Automatic, that forced a fixed pixel render size instead of letting the
-   component reflow with its container, which caused it to get stuck
-   mid-layout. Left removed on purpose.) ----------------------------------- */
+/* ---- Load the classic Tableau embed, sized to fill the window ---------
+   The share-generated embed code sizes the viz once, from the container's
+   width at that instant, using a fixed 4:3 ratio. We size it explicitly
+   in pixels to match the stage exactly instead, and redo that on every
+   resize so it always fills the window. ----------------------------------- */
+function loadViz() {
+  const stage = document.querySelector(".viz-stage");
+  const container = document.getElementById("viz1783014308655");
+  if (!stage || !container) return;
+  const viz = container.getElementsByTagName("object")[0];
+
+  const fit = () => {
+    viz.style.width = stage.clientWidth + "px";
+    viz.style.height = stage.clientHeight + "px";
+  };
+  fit();
+  window.addEventListener("resize", fit);
+
+  const script = document.createElement("script");
+  script.src = "https://public.tableau.com/javascripts/api/viz_v1.js";
+  viz.parentNode.insertBefore(script, viz);
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   buildChrome();
   buildCountdown();
   fillPlaceholders();
+  loadViz();
   // Wire the full-page feedback form if present
   wireForm(document.querySelector("#feedback-page [data-fb-form]"));
 });
