@@ -79,9 +79,17 @@ strong { color: var(--text); font-weight: 700; }
 }
 
 /* ---- Full-screen viz stage (home) --------------------------------------
-   Classic embed sized explicitly (in px, via app.js) to match the stage's
-   actual pixel dimensions on load and on every resize. ------------------- */
+   The viz always renders at its fixed design canvas (1500x900, set in
+   app.js) and is scaled uniformly — like an image — to fit the window.
+   Tableau never re-lays-out, so the layout can't degrade at odd sizes;
+   any letterboxing lands on the same navy as the dashboard ground. ------- */
 .viz-stage { position: fixed; inset: 0; background: var(--bg); overflow: hidden; }
+.viz-stage .tableauPlaceholder {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: center;
+}
 
 /* ---- Hamburger + menu (top right) ------------------------------------ */
 .nav-toggle {

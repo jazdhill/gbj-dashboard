@@ -240,30 +240,39 @@ function fillPlaceholders() {
   });
 }
 
-/* ---- Load the classic Tableau embed, sized to fill the window ---------
-   The share-generated embed code sizes the viz once, from the container's
-   width at that instant, using a fixed 4:3 ratio. We size it explicitly
-   in pixels to match the stage exactly instead, and redo that on every
-   resize so it always fills the window. ----------------------------------- */
+/* ---- Load the Tableau embed at its design size, scaled to fit ----------
+   Tableau's Automatic sizing re-lays-out the dashboard for whatever box
+   it's given, and this workbook's layout degrades (truncated labels,
+   "###" text) below roughly its 1500x900 design size. So Tableau never
+   gets to reflow: the viz always renders at the fixed design canvas and
+   we scale that canvas uniformly — like an image — to fit the window.
+   Same deterministic result on every screen, browser, and window size. --- */
+const VIZ_DESIGN = { width: 1500, height: 900 };
+
 function loadViz() {
   const stage = document.querySelector(".viz-stage");
-  const container = document.getElementById("viz1783014308655");
-  if (!stage || !container) return;
-  const viz = container.getElementsByTagName("object")[0];
+  const frame = document.getElementById("viz1783014308655");
+  if (!stage || !frame) return;
+  const viz = frame.getElementsByTagName("object")[0];
 
   const fit = () => {
-    viz.style.width = stage.clientWidth + "px";
-    viz.style.height = stage.clientHeight + "px";
+    // Reassert the frozen canvas in case anything inside adjusted it,
+    // then scale it to fit the stage without changing its layout size.
+    frame.style.width = VIZ_DESIGN.width + "px";
+    frame.style.height = VIZ_DESIGN.height + "px";
+    viz.style.width = VIZ_DESIGN.width + "px";
+    viz.style.height = VIZ_DESIGN.height + "px";
+    const scale = Math.min(
+      stage.clientWidth / VIZ_DESIGN.width,
+      stage.clientHeight / VIZ_DESIGN.height
+    );
+    frame.style.transform = `translate(-50%, -50%) scale(${scale})`;
   };
   fit();
   window.addEventListener("resize", fit);
 
   const script = document.createElement("script");
   script.src = "https://public.tableau.com/javascripts/api/viz_v1.js";
-  // The viz does its own internal size adjustment shortly after it finishes
-  // initializing (visible as a correct-then-scrollbar flash on load) —
-  // reassert our sizing a few times after that to win out over it.
-  script.onload = () => [300, 800, 1500, 3000].forEach(delay => setTimeout(fit, delay));
   viz.parentNode.insertBefore(script, viz);
 }
 
