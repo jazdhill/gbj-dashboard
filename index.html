@@ -41,6 +41,88 @@
     </div>
   </div>
 
+  <!-- Landing guide popup: auto-opens once per visitor (localStorage),
+       replayable anytime via the pill bottom-left. Logic in app.js. -->
+  <div class="gji-overlay" id="gjiOverlay" role="dialog" aria-modal="true" aria-labelledby="gjiTitle" hidden>
+    <div class="gji-modal" role="document">
+      <div class="gji-head">
+        <div>
+          <p class="gji-eyebrow" id="gjiEyebrow">Welcome</p>
+          <h2 class="gji-title" id="gjiTitle">The Good Jobs Index</h2>
+        </div>
+        <button class="gji-close" id="gjiClose" aria-label="Close guide">&times;</button>
+      </div>
+
+      <div class="gji-body">
+        <!-- Step 1 -->
+        <section class="gji-step is-active" data-eyebrow="Welcome" data-title="The Good Jobs Index">
+          <p class="gji-lead">This is an annually updating tool that explores which jobs pay enough to live on, and which of those good-paying jobs you can likely get without a four-year Bachelor's degree.</p>
+          <p class="gji-note">Current Scope: the United States and California, 1976 to today, with plans for additional states and regions to come.</p>
+        </section>
+
+        <!-- Step 2 -->
+        <section class="gji-step" data-eyebrow="Key terms" data-title="Two terms to know">
+          <dl class="gji-terms">
+            <div class="gji-term">
+              <dt>Good job</dt>
+              <dd>An occupation that pays a full-time worker at least the median household income (in the US or California, for that year). To mirror the high cost of living, we set the bar high on purpose; see more of our rationale on our Methodology page.</dd>
+            </div>
+            <div class="gji-term">
+              <dt>College-optional</dt>
+              <dd>An occupation where 49% or less of workers hold a bachelor's degree. In other words, there's a real chance to enter this job without a four-year degree, though many still call for a certificate or community-college credential.</dd>
+            </div>
+          </dl>
+        </section>
+
+        <!-- Step 3 — Table of Contents -->
+        <section class="gji-step" data-eyebrow="Table of Contents" data-title="What's Inside">
+          <ol class="gji-map">
+            <li><b>Overview</b> — what counts as a good job, and why the bar sits where it does</li>
+            <li><b>Returns to Education</b> — does a degree guarantee a good job?</li>
+            <li><b>Good Jobs</b> — which good jobs don't require a four-year degree</li>
+            <li><b>Race and Gender Inequality</b> — who's over- and under-represented in good jobs?</li>
+            <li><b>Change Over Time</b> — which jobs are growing or shrinking, and for whom</li>
+            <li><b>Job Explorer</b> — look up any occupation's pay, educational requirements, and demographics</li>
+            <li><b>Conclusions and Recommendations</b> — a growing list of what to do about it</li>
+          </ol>
+        </section>
+
+        <!-- Step 4 — Navigation -->
+        <section class="gji-step" data-eyebrow="Navigation" data-title="Finding your way">
+          <!-- SCREENSHOT SLOT (add later): drop the annotated nav image in here, e.g.
+               <div class="gji-shot"><img src="images/nav-guide.png" alt="Where the scope, filter, navigation, and menu controls sit on page one"></div> -->
+          <ul class="gji-controls">
+            <li><b>Scope + version</b> (top left): switch between the US and California. Your choice carries across every page.</li>
+            <li><b>Demographic filters</b>: redraw the charts for a group (e.g., race, gender, age).</li>
+            <li><b>Dots and arrows</b> (bottom): move between the seven pages.</li>
+            <li><b>Menu</b> (top right): view our Methodology and definitions page, find additional resources, and learn more about the research team.</li>
+          </ul>
+        </section>
+
+        <!-- Step 5 -->
+        <section class="gji-step" data-eyebrow="Please Give Feedback!" data-title="This is a beta">
+          <p class="gji-lead">The Good Jobs Index is new and still evolving. If something's unclear, looks off, or you wish it did more, tell us! Use the <b style="color:var(--gji-text)">Give Feedback</b> button anytime.</p>
+          <p class="gji-note">Want the full picture? Open the <b style="color:var(--gji-text)">Methodology</b> from the menu (top right) for the good-job threshold rationale and plain-language definitions of every term.</p>
+        </section>
+      </div>
+
+      <div class="gji-foot">
+        <div class="gji-dots" id="gjiDots" role="tablist" aria-label="Guide steps"></div>
+        <div class="gji-btns">
+          <button class="gji-btn gji-btn-ghost" id="gjiBack" hidden>Back</button>
+          <button class="gji-btn gji-btn-primary" id="gjiNext">Next</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="gji-reopen" id="gjiReopen" aria-label="Replay the how-to-use guide">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/>
+    </svg>
+    <span>How to use this guide</span>
+  </button>
+
   <script src="app.js"></script>
 </body>
 </html>

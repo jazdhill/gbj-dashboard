@@ -281,6 +281,86 @@ document.addEventListener("DOMContentLoaded", () => {
   buildCountdown();
   fillPlaceholders();
   loadViz();
+  buildGuide();
   // Wire the full-page feedback form if present
   wireForm(document.querySelector("#feedback-page [data-fb-form]"));
 });
+
+/* ---- Landing guide popup (index page only) -----------------------------
+   Steps through a short how-to-use tour. Auto-opens once per visitor
+   (localStorage), replayable anytime via the pill bottom-left. The markup
+   lives in index.html; on pages without it this is a no-op. -------------- */
+function buildGuide() {
+  var overlay = document.getElementById('gjiOverlay');
+  if (!overlay) return;
+  var steps   = Array.prototype.slice.call(overlay.querySelectorAll('.gji-step'));
+  var eyebrow = document.getElementById('gjiEyebrow');
+  var title   = document.getElementById('gjiTitle');
+  var backBtn = document.getElementById('gjiBack');
+  var nextBtn = document.getElementById('gjiNext');
+  var dotsWrap= document.getElementById('gjiDots');
+  var closeBtn= document.getElementById('gjiClose');
+  var reopen  = document.getElementById('gjiReopen');
+  var i = 0, lastFocus = null;
+  var SEEN = 'gji_guide_seen_v1';
+
+  steps.forEach(function(_, n){
+    var d = document.createElement('button');
+    d.className = 'gji-dot'; d.setAttribute('role','tab');
+    d.setAttribute('aria-label','Step ' + (n+1) + ' of ' + steps.length);
+    d.addEventListener('click', function(){ go(n); });
+    dotsWrap.appendChild(d);
+  });
+  var dots = Array.prototype.slice.call(dotsWrap.children);
+
+  function render(){
+    steps.forEach(function(s,n){ s.classList.toggle('is-active', n===i); });
+    dots.forEach(function(d,n){ d.classList.toggle('is-on', n===i); d.setAttribute('aria-selected', n===i); });
+    eyebrow.textContent = steps[i].dataset.eyebrow;
+    title.textContent   = steps[i].dataset.title;
+    backBtn.hidden = (i===0);
+    nextBtn.textContent = (i===steps.length-1) ? 'Start exploring' : 'Next';
+  }
+  function go(n){ i = Math.max(0, Math.min(steps.length-1, n)); render(); }
+
+  function open(){
+    lastFocus = document.activeElement;
+    overlay.hidden = false;
+    requestAnimationFrame(function(){ overlay.classList.add('is-open'); });
+    go(0);
+    setTimeout(function(){ nextBtn.focus(); }, 60);
+    document.addEventListener('keydown', onKey);
+  }
+  function close(){
+    overlay.classList.remove('is-open');
+    document.removeEventListener('keydown', onKey);
+    try{ localStorage.setItem(SEEN,'1'); }catch(e){}
+    setTimeout(function(){ overlay.hidden = true; }, 300);
+    if(lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+
+  function onKey(e){
+    if(e.key === 'Escape'){ close(); }
+    else if(e.key === 'ArrowRight'){ if(i<steps.length-1) go(i+1); }
+    else if(e.key === 'ArrowLeft'){ if(i>0) go(i-1); }
+    else if(e.key === 'Tab'){ trap(e); }
+  }
+  function trap(e){
+    var f = overlay.querySelectorAll('button, [href], [tabindex]:not([tabindex="-1"])');
+    f = Array.prototype.filter.call(f, function(el){ return el.offsetParent !== null; });
+    if(!f.length) return;
+    var first = f[0], last = f[f.length-1];
+    if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+    else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+  }
+
+  nextBtn.addEventListener('click', function(){ (i===steps.length-1) ? close() : go(i+1); });
+  backBtn.addEventListener('click', function(){ go(i-1); });
+  closeBtn.addEventListener('click', close);
+  reopen.addEventListener('click', open);
+  overlay.addEventListener('click', function(e){ if(e.target === overlay) close(); });
+
+  var seen = false;
+  try{ seen = !!localStorage.getItem(SEEN); }catch(e){}
+  if(!seen){ open(); }
+}

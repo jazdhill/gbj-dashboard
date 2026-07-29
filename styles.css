@@ -250,3 +250,133 @@ strong { color: var(--text); font-weight: 700; }
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; animation: none !important; }
 }
+
+/* ---- Good Jobs Index landing guide (index page popup) ------------------ */
+:root{
+  --gji-navy:#2a3046;
+  --gji-navy-panel:#333a54;
+  --gji-navy-deep:#20263a;
+  --gji-amber:#e7a24a;
+  --gji-amber-soft:rgba(231,162,74,.16);
+  --gji-text:#ffffff;
+  --gji-text-dim:#ffffff;
+  --gji-line:rgba(231,162,74,.28);
+}
+
+.gji-overlay{
+  position:fixed; inset:0; z-index:1000;
+  display:flex; align-items:center; justify-content:center;
+  padding:24px;
+  background:rgba(16,19,30,.72);
+  backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px);
+  opacity:0; visibility:hidden;
+  transition:opacity .28s ease, visibility .28s ease;
+}
+.gji-overlay.is-open{ opacity:1; visibility:visible; }
+
+.gji-modal{
+  width:100%; max-width:640px; max-height:calc(100vh - 48px);
+  display:flex; flex-direction:column;
+  background:var(--gji-navy);
+  border:1px solid var(--gji-line); border-top:4px solid var(--gji-amber);
+  border-radius:14px; box-shadow:0 24px 60px rgba(0,0,0,.5);
+  color:var(--gji-text);
+  transform:translateY(12px) scale(.98); transition:transform .28s ease;
+  overflow:hidden;
+}
+.gji-overlay.is-open .gji-modal{ transform:none; }
+
+.gji-head{ display:flex; align-items:flex-start; justify-content:space-between;
+  gap:16px; padding:26px 28px 6px; }
+.gji-eyebrow{ font-family:'Oswald',sans-serif; font-weight:500;
+  text-transform:uppercase; letter-spacing:.16em; font-size:12px;
+  color:var(--gji-amber); margin:0 0 6px; }
+.gji-title{ font-family:'Oswald',sans-serif; font-weight:600;
+  font-size:27px; line-height:1.15; margin:0; color:var(--gji-text); }
+.gji-close{ flex:none; width:34px; height:34px; margin:-4px -4px 0 0;
+  display:grid; place-items:center; background:transparent;
+  border:1px solid transparent; border-radius:8px; color:var(--gji-text-dim);
+  font-size:22px; line-height:1; cursor:pointer;
+  transition:background .15s ease, color .15s ease; }
+.gji-close:hover{ background:var(--gji-amber-soft); color:var(--gji-text); }
+
+.gji-body{ padding:14px 28px 8px; overflow-y:auto; }
+.gji-step{ display:none; }
+.gji-step.is-active{ display:block; animation:gjiFade .32s ease; }
+@keyframes gjiFade{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;} }
+
+.gji-lead{ font-family:'Lato',sans-serif; font-size:16px; line-height:1.6;
+  color:var(--gji-text); margin:0 0 16px; }
+.gji-note{ font-family:'Lato',sans-serif; font-size:14px; line-height:1.55;
+  color:var(--gji-text-dim); margin:14px 0 0; }
+
+.gji-terms{ margin:0; }
+.gji-term{ padding:14px 0; border-top:1px solid rgba(255,255,255,.08); }
+.gji-term:first-child{ border-top:0; }
+.gji-term dt{ font-family:'Oswald',sans-serif; font-weight:500; font-size:17px;
+  color:var(--gji-amber); margin:0 0 4px; letter-spacing:.01em; }
+.gji-term dd{ margin:0; font-family:'Lato',sans-serif; font-size:15px;
+  line-height:1.55; color:var(--gji-text-dim); }
+
+.gji-shot{ border:1px dashed var(--gji-line); border-radius:10px;
+  background:var(--gji-navy-deep); padding:22px 16px; text-align:center;
+  margin:0 0 16px; font-family:'Lato',sans-serif; font-size:13px;
+  color:var(--gji-text-dim); }
+.gji-shot img{ display:block; width:100%; height:auto; border-radius:6px; }
+.gji-controls{ list-style:none; margin:0; padding:0; }
+.gji-controls li{ font-family:'Lato',sans-serif; font-size:15px; line-height:1.5;
+  color:var(--gji-text-dim); padding:9px 0; border-top:1px solid rgba(255,255,255,.06); }
+.gji-controls li:first-child{ border-top:0; }
+.gji-controls b{ color:var(--gji-text); font-weight:700; }
+
+.gji-map{ list-style:none; counter-reset:pg; margin:0; padding:0; }
+.gji-map li{ position:relative; padding:9px 0 9px 40px;
+  font-family:'Lato',sans-serif; font-size:15px; line-height:1.45;
+  color:var(--gji-text-dim); border-top:1px solid rgba(255,255,255,.06); }
+.gji-map li:first-child{ border-top:0; }
+.gji-map li:before{ counter-increment:pg; content:counter(pg);
+  position:absolute; left:0; top:9px; width:26px; height:26px; border-radius:50%;
+  background:var(--gji-amber-soft); color:var(--gji-amber);
+  font-family:'Oswald',sans-serif; font-weight:600; font-size:13px;
+  display:grid; place-items:center; }
+.gji-map b{ color:var(--gji-text); font-weight:700; }
+
+.gji-foot{ display:flex; align-items:center; justify-content:space-between;
+  gap:16px; padding:14px 28px 22px; border-top:1px solid rgba(255,255,255,.07);
+  margin-top:8px; }
+.gji-dots{ display:flex; gap:9px; }
+.gji-dot{ width:9px; height:9px; padding:0; border:0; border-radius:50%;
+  background:rgba(255,255,255,.22); cursor:pointer;
+  transition:background .18s, transform .18s; }
+.gji-dot:hover{ background:rgba(255,255,255,.4); }
+.gji-dot.is-on{ background:var(--gji-amber); transform:scale(1.15); }
+.gji-btns{ display:flex; gap:10px; }
+.gji-btn{ font-family:'Oswald',sans-serif; font-weight:500; letter-spacing:.03em;
+  text-transform:uppercase; font-size:13px; cursor:pointer; padding:10px 18px;
+  border-radius:8px; border:1px solid transparent;
+  transition:background .15s ease, border-color .15s ease, color .15s ease; }
+.gji-btn-ghost{ background:transparent; border-color:rgba(255,255,255,.22); color:var(--gji-text-dim); }
+.gji-btn-ghost:hover{ border-color:var(--gji-amber); color:var(--gji-text); }
+.gji-btn-primary{ background:var(--gji-amber); color:var(--gji-navy-deep); }
+.gji-btn-primary:hover{ background:#f0b165; }
+.gji-btn[hidden]{ display:none; }
+
+/* replay pill — labeled, bottom-left so it clears Give Feedback (bottom-right) */
+.gji-reopen{ position:fixed; left:22px; bottom:22px; z-index:990;
+  display:inline-flex; align-items:center; gap:8px;
+  padding:11px 16px; border-radius:24px;
+  background:var(--gji-amber); color:var(--gji-navy-deep); border:none; cursor:pointer;
+  font-family:'Oswald',sans-serif; font-weight:500; text-transform:uppercase;
+  letter-spacing:.04em; font-size:13px;
+  box-shadow:0 6px 18px rgba(0,0,0,.35); transition:transform .15s ease, background .15s ease; }
+.gji-reopen:hover{ transform:translateY(-1px); background:#f0b165; }
+.gji-reopen svg{ width:15px; height:15px; }
+
+@media (max-width:520px){
+  .gji-title{ font-size:23px; }
+  .gji-head{ padding:22px 20px 4px; }
+  .gji-body{ padding:12px 20px 6px; }
+  .gji-foot{ padding:14px 20px 20px; flex-wrap:wrap; }
+  .gji-reopen{ left:16px; bottom:16px; padding:12px; border-radius:50%; }
+  .gji-reopen span{ display:none; } /* icon-only on small screens */
+}
