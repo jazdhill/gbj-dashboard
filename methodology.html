@@ -10,42 +10,445 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body data-page="methodology">
-  <div class="page-wrap">
-    <div class="content">
-      <p class="eyebrow">Methodology</p>
-      <h1 class="page-title">How we measure a good job</h1>
 
-      <p class="lead">Three definitions do most of the work in this dashboard. Here's what each
-        one means and where the numbers come from.</p>
+<style>
+/* Site-shell integration: this page is a light editorial page, unlike the
+   navy dashboard shell, so override the body ground and neutralize the
+   dark-theme heading/strong styles that styles.css would otherwise leak in. */
+body[data-page="methodology"] { background: #fff; }
+.gji-method h1,
+.gji-method h2,
+.gji-method h3 { text-transform: none; letter-spacing: normal; }
+.gji-method strong { color: var(--navy); }
 
-      <h2>What counts as a "good job"</h2>
-      <p>A job is counted as good if its typical pay clears a middle-class threshold, set at the
-        U.S. median household income. In the current version that threshold is
-        <strong>$83,730</strong>. You can change the threshold and the geographic scope inside the
-        dashboard to see how the picture shifts.</p>
+.gji-method {
+  --navy: #2a3046;
+  --amber: #e7a24a;
+  --ink: #1d2130;
+  --muted: #5c6377;
+  --rule: #d9dce4;
+  --wash: #f6f7f9;
 
-      <h2>"College-optional" versus "college-required"</h2>
-      <p>College-optional jobs are occupations a worker can enter without a bachelor's degree.
-        College-required jobs typically expect one. Separating the two is what lets the tool ask
-        whether a good job is still reachable without a degree, and track how that has changed.</p>
+  color: var(--ink);
+  font-family: 'Lato', system-ui, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: clamp(72px, 11vh, 112px) 1.25rem 6rem;
+}
 
-      <h2>Where the data comes from</h2>
-      <p>The underlying figures draw on the <strong>Current Population Survey</strong>, accessed
-        through IPUMS, covering <strong>1976 through 2025</strong> at both the national and
-        California level. Occupation-level income, education, demographics, union coverage, health
-        coverage, and projected growth come from these public sources.</p>
+.gji-method h1,
+.gji-method h2,
+.gji-method h3 {
+  font-family: 'Oswald', 'Lato', sans-serif;
+  font-weight: 500;
+  color: var(--navy);
+  line-height: 1.2;
+}
 
-      <h2>A note on small samples</h2>
-      <p>Some occupations are held by relatively few survey respondents. Where a demographic
-        estimate rests on a small sample, the dashboard flags it so those numbers are read with
-        appropriate caution rather than treated as precise.</p>
+.gji-method h1 {
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  margin: 0 0 0.5rem;
+}
 
-      <p class="muted" style="font-size:.92rem">This page is a plain-language summary. For the full
-        technical detail, definitions, and any documentation you'd like to link, edit this page.</p>
+.gji-method h2 {
+  font-size: 1.5rem;
+  margin: 3.25rem 0 0.75rem;
+  padding-top: 1.25rem;
+  border-top: 2px solid var(--amber);
+}
 
-      <a class="back-home" href="index.html">← Back to the dashboard</a>
-    </div>
+.gji-method h3 {
+  font-size: 1.15rem;
+  margin: 2rem 0 0.5rem;
+  color: var(--ink);
+}
+
+.gji-method p { margin: 0 0 1rem; }
+.gji-method ul { margin: 0 0 1rem; padding-left: 1.25rem; }
+.gji-method li { margin-bottom: 0.5rem; }
+
+.gji-method a {
+  color: var(--navy);
+  text-decoration-color: var(--amber);
+  text-underline-offset: 3px;
+}
+.gji-method a:hover { color: var(--amber); }
+.gji-method a:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+
+.gji-method .byline {
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin-bottom: 2.5rem;
+}
+.gji-method .byline span { display: block; }
+
+/* Contents */
+.gji-method .contents {
+  background: var(--wash);
+  border-left: 3px solid var(--amber);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 2rem;
+}
+.gji-method .contents h2 {
+  font-size: 1rem;
+  margin: 0 0 0.5rem;
+  border-top: 0;
+  padding-top: 0;
+}
+.gji-method .contents ol {
+  margin: 0;
+  padding-left: 1.25rem;
+  columns: 2;
+  column-gap: 2rem;
+  font-size: 0.95rem;
+}
+.gji-method .contents li { margin-bottom: 0.3rem; break-inside: avoid; }
+
+/* Key terms up top */
+.gji-method .keyterms {
+  border: 1px solid var(--rule);
+  padding: 1.25rem 1.5rem 0.5rem;
+  margin-bottom: 1rem;
+}
+.gji-method .keyterms .term { font-weight: 700; color: var(--navy); }
+
+/* Tables */
+.gji-method table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.25rem 0 1.5rem;
+  font-size: 0.95rem;
+}
+.gji-method caption {
+  text-align: left;
+  color: var(--muted);
+  font-size: 0.9rem;
+  padding-bottom: 0.5rem;
+}
+.gji-method th,
+.gji-method td {
+  text-align: left;
+  padding: 0.55rem 0.75rem;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+.gji-method thead th {
+  font-family: 'Oswald', 'Lato', sans-serif;
+  font-weight: 500;
+  color: var(--navy);
+  border-bottom: 2px solid var(--navy);
+}
+.gji-method tbody tr:nth-child(even) { background: var(--wash); }
+.gji-method .num { font-variant-numeric: tabular-nums; }
+
+.gji-method .table-scroll { overflow-x: auto; }
+
+/* Steps */
+.gji-method .steps { list-style: none; padding-left: 0; counter-reset: step; }
+.gji-method .steps > li {
+  counter-increment: step;
+  padding-left: 2.75rem;
+  position: relative;
+  margin-bottom: 1.1rem;
+}
+.gji-method .steps > li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 0.1rem;
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 50%;
+  background: var(--navy);
+  color: #fff;
+  font-family: 'Oswald', 'Lato', sans-serif;
+  display: grid;
+  place-items: center;
+  font-size: 0.95rem;
+}
+.gji-method .steps strong { color: var(--navy); }
+
+/* Worked example */
+.gji-method .example {
+  background: var(--wash);
+  border-left: 3px solid var(--navy);
+  padding: 1.25rem 1.5rem 0.25rem;
+  margin: 1.5rem 0;
+}
+
+/* Citation */
+.gji-method .citation {
+  font-size: 0.9rem;
+  color: var(--muted);
+  border-left: 3px solid var(--rule);
+  padding-left: 1rem;
+  margin: 1rem 0 0;
+}
+
+/* Glossary */
+.gji-method dl { margin: 1rem 0 0; }
+.gji-method dt {
+  font-weight: 700;
+  color: var(--navy);
+  margin-top: 1rem;
+}
+.gji-method dd { margin: 0.15rem 0 0; }
+
+@media (max-width: 40rem) {
+  .gji-method .contents ol { columns: 1; }
+}
+</style>
+
+<article class="gji-method">
+
+  <h1>Methodology and Glossary</h1>
+  <p class="byline">
+    <span>Jasmine D. Hill, UCLA Luskin School of Public Affairs</span>
+    <span>Last updated September 9, 2026</span>
+  </p>
+
+  <nav class="contents" aria-label="Contents">
+    <h2>On this page</h2>
+    <ol>
+      <li><a href="#measures">What we measure, and why</a></li>
+      <li><a href="#good-job">Defining a good job</a></li>
+      <li><a href="#college-optional">Defining college-optional</a></li>
+      <li><a href="#sources">Data sources</a></li>
+      <li><a href="#estimates">How we build the estimates</a></li>
+      <li><a href="#reliability">Reliability and the respondent filter</a></li>
+      <li><a href="#across-years">What changes across years</a></li>
+      <li><a href="#inflation">Inflation adjustment</a></li>
+      <li><a href="#representation">Reading the representation chart</a></li>
+      <li><a href="#limitations">Limitations</a></li>
+      <li><a href="#version">Version history</a></li>
+      <li><a href="#glossary">Glossary</a></li>
+    </ol>
+  </nav>
+
+  <div class="keyterms">
+    <p><span class="term">Good job.</span> An occupation that pays a full-time worker at least the median household income for that year, in the United States or California depending on which scope you have selected. See <a href="#good-job">Defining a good job</a> for why we set the bar there.</p>
+    <p><span class="term">College-optional job.</span> An occupation in which fewer than half of workers hold a bachelor's degree. See <a href="#college-optional">Defining college-optional</a>.</p>
   </div>
-  <script src="app.js"></script>
+  <p>A full glossary of every other term used in the tool appears at the <a href="#glossary">end of this page</a>.</p>
+
+  <h2 id="measures">What the Good Jobs Index measures, and why</h2>
+  <p>The Good Jobs Index measures how many occupations pay enough for a single worker to live well, which of those occupations are open to workers without a four-year degree, and who holds them. It covers the United States and California from 1976 to today.</p>
+  <p>We measure whether a job pays enough on its own, rather than whether a worker's household reaches a given standard. That choice reflects a commitment that runs through the whole tool: we want to decouple economic policy from family policy. Whether a job pays enough to live well should not depend on assumptions about whether the worker marries, partners, or has children. A labor market analysis should ask what work provides, and leave decisions about family to workers themselves.</p>
+  <p>That principle explains most of the methodological choices that follow, including the one readers ask about most, which is why our threshold is set as high as it is.</p>
+
+  <h2 id="good-job">Defining a good job</h2>
+  <p>We define a good job as an occupation whose full-time pay meets or exceeds the median household income for that year and geography. In 2025 that is $83,730 nationally and $100,600 in California.</p>
+  <p>We set the bar high on purpose. One job should be enough to live well, so we ask whether a single worker can earn what a typical household earns, without relying on a second income to get there. Because the benchmark is a median, at least half of households already clear it. That makes it an observed, real-world standard rather than a modeled or arbitrary one, and it carries a built-in interpretation: a worker who reaches it has reached a standard the typical household actually attains.</p>
+
+  <h3>Why household income rather than personal earnings</h3>
+  <p>The most common objection to our threshold is that median household income is high. It is a lot to ask of one worker, since the typical household has roughly one and a half earners. Reviewers have suggested we use median personal earnings, or median earnings among full-time workers. We considered both and declined.</p>
+  <p>A personal-earnings threshold sets a lower bar precisely because it assumes the gap to a household standard of living will be closed by someone else, usually a second earner. It quietly builds partnership, relationships, or marriage into the definition of who is doing well enough. That assumption is empirically shaky, given how many American households are single-adult, single-parent, or otherwise outside the two-earner template. It is also normatively troubling. Treating a lower personal wage as good enough holds that workers can accept less because a partner will make up the difference, and historically that logic has fallen hardest on women, for whom marriage has long been framed as an economic strategy.</p>
+  <p>By setting an individual worker's target at the household median, we ask a simpler and, we think, fairer question: can this job, on its own, support a household-typical life? A worker who can answer yes is free to partner or not without that choice determining whether their work pays enough.</p>
+
+  <h3>Comparing against a needs-based standard</h3>
+  <p>A living wage is a valuable and complementary benchmark, and our threshold is inspired by that tradition. It answers a different question than ours, though. A living wage estimates what a specific household composition costs in a specific place, so the figure moves substantially with the number of adults and children assumed. Any single living-wage number applied across a whole labor force is therefore arbitrary with respect to the diversity of real households, and a schedule of them would make comparison across fifty years unwieldy.</p>
+  <p>Rather than choose between the two, we let readers see both. On the pages where it is offered, such as Good Jobs, you can switch the threshold to the California living wage and compare directly against a needs-based standard. For 2025 those figures are $63,402 for one adult and $111,362 for one adult with one child.</p>
+
+  <h3>What we do not do</h3>
+  <ul>
+    <li>We do not adjust the threshold for household size or composition.</li>
+    <li>We do not apply a lower threshold to younger workers. Housing, food, transportation, and health care are not cheaper for a twenty-seven-year-old than for a thirty-seven-year-old in the same market, so we apply one standard to all adults.</li>
+    <li>We do not claim to measure middle-class membership. Middle class is usually defined as a band, often the middle three quintiles. Ours is a floor, not a band. A job clears it or it does not, and there is no ceiling.</li>
+  </ul>
+
+  <h3>Threshold values by year</h3>
+  <div class="table-scroll">
+    <table>
+      <caption>Median household income used as the good-job threshold, in each year's dollars.</caption>
+      <thead>
+        <tr><th scope="col">Year</th><th scope="col">United States</th><th scope="col">California</th></tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">2025</th><td class="num">$83,730</td><td class="num">$100,600</td></tr>
+        <tr><th scope="row">2015</th><td class="num">$56,516</td><td class="num">$63,640</td></tr>
+        <tr><th scope="row">2005</th><td class="num">$46,242</td><td class="num">$51,760</td></tr>
+        <tr><th scope="row">1995</th><td class="num">$34,076</td><td class="num">$37,010</td></tr>
+        <tr><th scope="row">1985</th><td class="num">$23,620</td><td class="num">$26,980</td></tr>
+        <tr><th scope="row">1976</th><td class="num">$14,960</td><td class="num">$15,480</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Two notes on this table. The 2025 figures are the most recent published medians, which cover calendar year 2024. And the 1976 California figure is the median household income for the West census region, because state-level medians are not available that far back.</p>
+
+  <h2 id="college-optional">Defining college-optional</h2>
+  <p>A college-optional job is an occupation in which fewer than half of workers hold a bachelor's degree. We use the share of workers who actually hold a degree rather than the credential an employer says it prefers, because the first describes who is really in the job and the second describes who an employer says they want.</p>
+  <p>We recompute this share every year in our series. An occupation is college-optional in 1995 if fewer than half of its workers held a degree in 1995, and it is evaluated again on its own terms in 2005, 2015, and 2025. This matters for reading the change-over-time charts. Some of the movement you see comes from occupations crossing the education line as their workforces credentialize, not only from pay changing. That is the measure working as intended. An occupation that once absorbed workers without a degree and no longer does has genuinely stopped being a path for them, and we want the tool to show that.</p>
+  <p>We focus on this population because it is the majority. Roughly 61 percent of American adults aged 25 and over do not hold a bachelor's degree.</p>
+
+  <h2 id="sources">Data sources</h2>
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr><th scope="col">Component</th><th scope="col">Data vintage</th><th scope="col">Source</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Worker earnings, demographics, education, union status, health coverage, occupation</td><td>1976, 1985, 1995, 2005, 2015, 2025</td><td><a href="https://cps.ipums.org/cps/">IPUMS CPS</a>, Current Population Survey Annual Social and Economic Supplement</td></tr>
+        <tr><td>U.S. median household income</td><td>Per year listed above</td><td>U.S. Census Bureau, Current Population Reports, P60 series</td></tr>
+        <tr><td>California median household income</td><td>1985 to 2024</td><td><a href="https://fred.stlouisfed.org/series/MEHOINUSCAA646N">FRED series MEHOINUSCAA646N</a>, Federal Reserve Bank of St. Louis</td></tr>
+        <tr><td>California median household income, 1976</td><td>1976</td><td>U.S. Census Bureau, P60-107 (West region)</td></tr>
+        <tr><td>Inflation adjustment</td><td>Through 2024</td><td><a href="https://www.bls.gov/cpi/research-series/r-cpi-u-rs-home.htm">BLS Consumer Price Index research series, R-CPI-U-RS</a></td></tr>
+        <tr><td>Living wage threshold, California</td><td>2025</td><td><a href="https://livingwage.mit.edu/">MIT Living Wage Calculator</a></td></tr>
+        <tr><td>Typical entry education, prior experience, on-the-job training, employer-reported median wage</td><td>2024</td><td>BLS Occupational Employment and Wage Statistics (OEWS)</td></tr>
+        <tr><td>Projected employment change</td><td>2023 to 2033</td><td><a href="https://www.bls.gov/ooh/">BLS Occupational Outlook Handbook</a></td></tr>
+        <tr><td>Workforce share benchmarks, sex and race</td><td>2025 annual averages</td><td><a href="https://www.bls.gov/cps/cpsaat08.htm">BLS CPS Table A-8</a></td></tr>
+        <tr><td>Workforce share benchmarks, AI/AN and NHPI</td><td>2023</td><td><a href="https://www.bls.gov/opub/reports/race-and-ethnicity/2023/">BLS, Labor Force Characteristics by Race and Ethnicity</a></td></tr>
+        <tr><td>Workforce share benchmark, college</td><td>2024</td><td>U.S. Census Bureau, CPS ASEC educational attainment</td></tr>
+        <tr><td>Workforce share benchmark, union</td><td>2025</td><td><a href="https://www.bls.gov/news.release/union2.nr0.htm">BLS, Union Members Summary</a></td></tr>
+        <tr><td>Workforce share benchmark, health coverage</td><td>March 2024</td><td>BLS National Compensation Survey, Employee Benefits</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="citation">Please cite the underlying microdata as: Sarah Flood, Miriam King, Renae Rodgers, Steven Ruggles, J. Robert Warren, Daniel Backman, Etienne Breton, Grace Cooper, Julia A. Rivera Drew, Stephanie Richards, David Van Riper, and Kari C.W. Williams. IPUMS CPS: Version 13.0 [dataset]. Minneapolis, MN: IPUMS, 2025. <a href="https://doi.org/10.18128/D030.V13.0">https://doi.org/10.18128/D030.V13.0</a></p>
+
+  <h2 id="estimates">How we build the estimates</h2>
+  <ol class="steps">
+    <li><strong>Restrict the sample.</strong> We keep respondents who are 18 or older and who worked full time, full year, meaning at least 35 hours per week for at least 50 weeks in the prior calendar year. The Good Jobs Index is a measure of what full-time work pays, so part-year and part-time workers are outside its scope.</li>
+    <li><strong>Assign each worker to an occupation.</strong> We use the occupation of the longest job held in the prior calendar year, since that is the job the reported earnings correspond to. For the historical series we use a consistent 1990 occupational basis so that occupations can be compared across fifty years. For the current-year detail in the Job Explorer we use the contemporary occupation coding, crosswalked to 2018 Standard Occupational Classification codes so that employer-reported information from OEWS and the Occupational Outlook Handbook can be attached.</li>
+    <li><strong>Apply survey weights.</strong> All counts and shares are weighted using the CPS ASEC person weight, so that estimates describe the population rather than the raw sample. Union estimates use the earnings weight instead, following IPUMS guidance, because that weight is constructed for questions about earnings and union status.</li>
+    <li><strong>Compute occupation-level figures.</strong> For each occupation in each year and geography, we calculate median earnings overall and for each demographic group, the number of workers, and the share of workers in each group.</li>
+    <li><strong>Classify.</strong> Each occupation is compared against two thresholds. Its median earnings are compared against the median household income for that same year and geography, which makes it a good job or not. Its share of degree holders is compared against 50 percent, which makes it college-optional or not. The two are independent, so every occupation lands in one of four categories.</li>
+  </ol>
+
+  <div class="example">
+    <h3>A worked example</h3>
+    <p>Suppose an occupation in 2025 has median full-time earnings of $88,000, and 30 percent of the people working in it hold a bachelor's degree. Its earnings clear the 2025 national threshold of $83,730, so it is a good job. Fewer than half of its workers hold a degree, so it is college-optional. It therefore appears in the good and college-optional group, which is the group the tool is centrally concerned with.</p>
+    <p>Now suppose the same occupation is examined in 2015. The relevant comparison is not $83,730. It is the 2015 national median household income of $56,516, compared against that occupation's 2015 median earnings. And the degree share is recalculated using 2015 workers. An occupation can therefore be a good college-optional job in one year and not in another, either because its pay moved relative to the national median or because its workforce credentialized.</p>
+  </div>
+
+  <h3>What we do not do</h3>
+  <ul>
+    <li>We do not impute estimates for one demographic group from another. Every figure shown for a group is calculated from respondents in that group.</li>
+    <li>We do not model or smooth occupation-level estimates. What you see is what the survey reports, weighted to population.</li>
+    <li>We do not use employer-reported wages to classify jobs as good or bad. Those figures appear in the Job Explorer for context, but classification always uses worker-reported CPS earnings.</li>
+  </ul>
+
+  <h2 id="reliability">Reliability and the respondent filter</h2>
+  <p>The CPS is a sample survey, so estimates built on a small number of respondents carry more uncertainty than estimates built on many. This matters most in three places: California rather than national figures, since the state sample is smaller; smaller occupations; and demographic subgroups within an occupation, where geography, occupation, and group intersect and the underlying count can be very small even when the occupation overall is well covered.</p>
+  <p>Rather than impose a single cutoff, we let you set your own. The respondent filter controls the minimum number of unweighted survey respondents an occupation must have before it appears. Unweighted means the actual count of survey records, before population weights are applied. The default is 5.</p>
+  <p>How to think about the setting:</p>
+  <ul>
+    <li><strong>30 or more.</strong> Estimates at this level are stable enough for general use and public reporting, and this is the conventional threshold used by federal statistical agencies. Fewer occupations appear, particularly in California and in earlier years.</li>
+    <li><strong>15 to 29.</strong> Usable with care. Expect more volatility, especially in subgroup figures.</li>
+    <li><strong>Below 15.</strong> Use for exploration rather than for citation. At very low counts a single respondent can move a median substantially, and demographic shares can round to zero or to 100 percent simply because only a few people were surveyed.</li>
+  </ul>
+  <p>One caution that applies at every setting. The filter operates on the occupation's overall respondent count. A demographic subgroup within that occupation, such as Black women or Latino men in a given field, may rest on far fewer respondents than the occupation-level count suggests. Subgroup figures deserve more caution than the filter alone provides.</p>
+
+  <h2 id="across-years">What changes across years</h2>
+  <p>Fifty years of survey data is not fifty years of identical questions. The following changes affect comparability, and we state them plainly rather than smoothing over them.</p>
+  <p><strong>Earnings variable.</strong> From 1995 forward we use earnings from the longest job held in the prior year. For 1985 and 1976 that variable is not available, so we use wage and salary income.</p>
+  <p><strong>Race and ethnicity categories.</strong> For 2005 through 2025, Asian workers are identified separately. For 1995, Asian and Pacific Islander workers are combined into a single AAPI category. For 1985 and 1976, the survey does not distinguish Asian or Pacific Islander workers at all, and they fall into a broader Other category. Race-specific comparisons should not be run straight across all six years without noting this.</p>
+  <p><strong>Educational attainment categories.</strong> From 1995 forward the categories are high school or less, some college, bachelor's degree, and master's degree or higher. For 1985 and 1976 the survey instead records years of college completed, giving high school or less, one to three years of college, four years of college, and five or more years of college. Our degree and non-degree groupings are constructed to be as consistent as possible across both schemes.</p>
+  <p><strong>Job quality variables.</strong> Union status is available from 1990 forward, so it does not appear for 1976. Health coverage is available from 1980 forward, so it does not appear for 1976 but does appear for 1985.</p>
+  <p><strong>Sample size.</strong> The CPS sample has grown over time, so earlier years contain fewer respondents overall. You will see more occupations filtered out in 1976 and 1985 than in 2015 and 2025. That is the survey design showing through, not a gap in the analysis.</p>
+  <p><strong>California in 1976.</strong> State-level median household income is not published for 1976, so the 1976 California threshold uses the median for the West census region.</p>
+
+  <h2 id="inflation">Inflation adjustment</h2>
+  <p>By default, the tool does not adjust for inflation, and it does not need to. Each year's occupational earnings are compared against that same year's median household income. Both sides of the comparison are in that year's dollars, so the comparison is internally consistent. A 1976 job is measured against the 1976 standard of living, not against today's.</p>
+  <p>This is deliberate, and it is a change from an earlier version of this tool. Holding a recent threshold constant and deflating it backward makes the past look uniformly impoverished, because it measures 1976 workers against a living standard that did not exist yet. Under that approach roughly 92 percent of 1976 workers were classified as holding bad jobs, which says more about economic growth than about job quality.</p>
+  <p>Where you do want to compare dollar amounts across years directly, the tool offers an inflation-adjusted view. Those figures are expressed in 2024 dollars using the BLS Consumer Price Index research series, R-CPI-U-RS. Because that series does not extend to 1976, the 1977 index is used for the 1976 adjustment.</p>
+  <div class="table-scroll">
+    <table>
+      <caption>Thresholds expressed in 2024 dollars.</caption>
+      <thead>
+        <tr><th scope="col">Year</th><th scope="col">United States</th><th scope="col">California</th></tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">2015</th><td class="num">$75,046</td><td class="num">$84,506</td></tr>
+        <tr><th scope="row">2005</th><td class="num">$74,675</td><td class="num">$83,586</td></tr>
+        <tr><th scope="row">1995</th><td class="num">$70,045</td><td class="num">$76,076</td></tr>
+        <tr><th scope="row">1985</th><td class="num">$65,968</td><td class="num">$75,352</td></tr>
+        <tr><th scope="row">1976</th><td class="num">$69,190</td><td class="num">$71,595</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="representation">Reading the representation chart</h2>
+  <p>The scatterplot comparing demographic concentration against projected employment change does not divide at 50 percent. It divides at each group's actual share of the full-time workforce, because that is what over- and under-representation means. A group holding 13 percent of the jobs in an occupation is over-represented if they are 10 percent of the workforce and under-represented if they are 20 percent.</p>
+  <p>The benchmark shares we use are: men 56.2 percent, women 43.8 percent, White 75.3 percent, Latino 20.1 percent, Black 13.0 percent, Asian 7.7 percent, AAPI 8.2 percent, American Indian and Alaska Native 1.0 percent, Native Hawaiian and Pacific Islander 0.5 percent, workers with a college degree 44.5 percent, workers with health benefits 75.0 percent, and unionized workers 10.9 percent. Race and ethnicity shares overlap, since Latino workers may be of any race, so these do not sum to 100 percent.</p>
+  <p>Three caveats. American Indian and Alaska Native and Native Hawaiian and Pacific Islander shares are total labor force figures rather than full-time-specific ones, because sample sizes are too small for BLS to publish reliable full-time breakouts. The AAPI share is not published as a combined category and is the sum of the Asian and NHPI figures. The health benefits figure is the share of civilian workers with access to employer-sponsored medical care benefits, which is access rather than enrollment.</p>
+
+  <h2 id="limitations">Limitations</h2>
+  <p><strong>Pay is one dimension of job quality.</strong> Scheduling, stability, safety, autonomy, benefits, and advancement all matter, and a well-paying job can be a bad job on any of them. Earnings is the dimension we can measure consistently across every occupation and across fifty years. We use it because it is transparent and because it correlates strongly with the other dimensions of a decent life, including health, housing security, and stability, not because it is the whole story.</p>
+  <p><strong>Occupation-level estimates carry uncertainty.</strong> The CPS is designed to produce reliable national and state estimates. Occupation-level figures, and especially demographic figures within occupations, sit below the level the survey was built for.</p>
+  <p><strong>Earnings lag the survey year.</strong> CPS income questions ask about the prior calendar year, so earnings reflect labor market conditions one year behind the survey.</p>
+  <p><strong>The series is not continuous.</strong> We sample six points across fifty years rather than every year. Changes between them are real, but the tool cannot show what happened in between.</p>
+  <p><strong>Occupations are not perfectly stable objects.</strong> Consistent coding across fifty years requires grouping some occupations more coarsely than a contemporary classification would, and the content of a job can change even when its title does not.</p>
+
+  <h2 id="version">Version history</h2>
+  <p><strong>Version 1.0, [LAUNCH DATE].</strong> Initial public release. United States and California, 1976 to 2025, using IPUMS CPS version 13.0. Thresholds set at the U.S. and California median household income for each year, with the California living wage available as an alternate threshold on selected pages.</p>
+  <p>The Good Jobs Index is designed to update as new Current Population Survey data becomes available. When a release changes a threshold, a data source, or a definition, the change will be recorded here.</p>
+
+  <h2 id="glossary">Glossary</h2>
+  <dl>
+    <dt>Bad job</dt>
+    <dd>An occupation whose full-time median earnings fall below the median household income threshold for that year and geography.</dd>
+
+    <dt>College-optional job</dt>
+    <dd>An occupation in which fewer than half of workers hold a bachelor's degree, recomputed for each year in the series.</dd>
+
+    <dt>College-required job</dt>
+    <dd>An occupation in which half or more of workers hold a bachelor's degree.</dd>
+
+    <dt>Concentration</dt>
+    <dd>The share of workers in an occupation who belong to a given demographic group.</dd>
+
+    <dt>CPS ASEC</dt>
+    <dd>The Current Population Survey Annual Social and Economic Supplement, a nationally representative household survey run jointly by the Census Bureau and the Bureau of Labor Statistics. The source of all worker-level data in this tool.</dd>
+
+    <dt>Full-time worker</dt>
+    <dd>A respondent aged 18 or older who worked at least 35 hours per week for at least 50 weeks in the prior calendar year.</dd>
+
+    <dt>Good job</dt>
+    <dd>An occupation whose full-time median earnings meet or exceed the median household income for that year and geography.</dd>
+
+    <dt>Living wage</dt>
+    <dd>An estimate of the earnings required to cover a specific household's basic needs in a specific place, published by the MIT Living Wage Calculator. Available in this tool as an alternate threshold for California.</dd>
+
+    <dt>Median household income</dt>
+    <dd>The income of the household at the midpoint of the national or state distribution. Half of households earn more, half earn less. Our default threshold.</dd>
+
+    <dt>OEWS</dt>
+    <dd>The BLS Occupational Employment and Wage Statistics program, an employer-reported survey. Source of typical entry education, prior experience, on-the-job training, and employer-reported wages in the Job Explorer.</dd>
+
+    <dt>Occupational Outlook Handbook</dt>
+    <dd>A BLS publication projecting employment change by occupation. Source of the 2023 to 2033 projections.</dd>
+
+    <dt>Projected employment change</dt>
+    <dd>The percentage change in employment BLS projects for an occupation between 2023 and 2033.</dd>
+
+    <dt>Respondent filter</dt>
+    <dd>A user-adjustable control setting the minimum number of unweighted survey respondents required for an occupation to display. Default 5.</dd>
+
+    <dt>Returns to education</dt>
+    <dd>The difference in earnings associated with each level of educational attainment, shown overall and by demographic group.</dd>
+
+    <dt>Sub-baccalaureate</dt>
+    <dd>Workers without a four-year degree. Used interchangeably with college-optional when describing workers rather than occupations.</dd>
+
+    <dt>Survey weight</dt>
+    <dd>A factor applied to each respondent so that the sample represents the national or state population. This tool uses the CPS ASEC person weight, and the earnings weight for union estimates.</dd>
+
+    <dt>Unweighted respondents</dt>
+    <dd>The raw count of survey records behind an estimate, before weights are applied. The basis for the respondent filter.</dd>
+
+    <dt>Workforce share benchmark</dt>
+    <dd>A demographic group's share of the full-time workforce nationally, used as the dividing line for over- and under-representation in the scatterplot charts.</dd>
+  </dl>
+
+  <p><a href="index.html">← Back to the dashboard</a></p>
+
+</article>
+
+<script src="app.js"></script>
 </body>
 </html>
