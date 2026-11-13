@@ -56,12 +56,14 @@
       <div class="gji-body">
         <!-- Step 1 -->
         <section class="gji-step is-active" data-eyebrow="Welcome" data-title="The Good Jobs Index">
-          <p class="gji-lead">This is an annually updating tool that explores which jobs pay enough to live on, and which of those good-paying jobs you can likely get without a four-year Bachelor's degree.</p>
+          <p class="gji-hook">Can you still reach the middle class in America <em>without</em> a college degree?</p>
+          <p class="gji-lead gji-lead-lg">The Good Jobs Index shows which jobs pay American workers enough to live on today, and which of those jobs you can land without a four-year bachelor's degree. Updated every year.</p>
           <p class="gji-note">Current Scope: the United States and California, 1976 to today, with plans for additional states and regions to come.</p>
         </section>
 
         <!-- Step 2 -->
         <section class="gji-step" data-eyebrow="Key terms" data-title="Two terms to know">
+          <p class="gji-intro">You'll see two terms on every page of the Good Jobs Index. Here's what we mean by each.</p>
           <dl class="gji-terms">
             <div class="gji-term">
               <dt>Good job</dt>
@@ -76,6 +78,7 @@
 
         <!-- Step 3 — Table of Contents -->
         <section class="gji-step" data-eyebrow="Table of Contents" data-title="What's Inside">
+          <p class="gji-intro">Here's what you'll learn in this index, page by page.</p>
           <ol class="gji-map">
             <li><b>Overview</b> — what counts as a good job, and why the bar sits where it does</li>
             <li><b>Returns to Education</b> — does a degree guarantee a good job?</li>
@@ -89,20 +92,32 @@
 
         <!-- Step 4 — Navigation -->
         <section class="gji-step" data-eyebrow="Navigation" data-title="Finding your way">
-          <!-- SCREENSHOT SLOT (add later): drop the annotated nav image in here, e.g.
-               <div class="gji-shot"><img src="images/nav-guide.png" alt="Where the scope, filter, navigation, and menu controls sit on page one"></div> -->
-          <ul class="gji-controls">
-            <li><b>Scope + version</b> (top left): switch between the US and California. Your choice carries across every page.</li>
-            <li><b>Demographic filters</b>: redraw the charts for a group (e.g., race, gender, age).</li>
-            <li><b>Dots and arrows</b> (bottom): move between the seven pages.</li>
-            <li><b>Menu</b> (top right): view our Methodology and definitions page, find additional resources, and learn more about the research team.</li>
+          <p class="gji-intro">Four controls get you everywhere. Watch the clip: each one lights up as it's used.</p>
+          <ul class="gji-controls" id="gjiControls">
+            <li data-from="0" data-to="2.53"><b>Scope + version</b> (top left): switch between the US and California. Your choice carries across every page.</li>
+            <li data-from="2.53" data-to="6.53"><b>Demographic filters</b>: redraw the charts for a group (e.g., race, gender, age).</li>
+            <li data-from="6.53" data-to="11.07"><b>Dots and arrows</b> (bottom): move between the seven pages.</li>
+            <li data-from="11.07" data-to="99"><b>Menu</b> (top right): view our Methodology and definitions page, find additional resources, and learn more about the research team.</li>
           </ul>
+          <!-- Navigation clip: a trimmed, silent loop of the real dashboard.
+               Segment times above (data-from / data-to, in seconds) must match
+               the cuts in images/nav-guide.mp4. app.js highlights the matching
+               list item as the clip plays. -->
+          <div class="gji-shot">
+            <video id="gjiNavVideo" src="images/nav-guide.mp4" poster="images/nav-guide-poster.jpg"
+                   muted loop playsinline preload="metadata"
+                   aria-label="Screen recording showing the scope menu, demographic filters, page dots and arrows, and the site menu in use"></video>
+          </div>
         </section>
 
         <!-- Step 5 -->
-        <section class="gji-step" data-eyebrow="Please Give Feedback!" data-title="This is a beta">
-          <p class="gji-lead">The Good Jobs Index is new and still evolving. If something's unclear, looks off, or you wish it did more, tell us! Use the <b style="color:var(--gji-text)">Give Feedback</b> button anytime.</p>
-          <p class="gji-note">Want the full picture? Open the <b style="color:var(--gji-text)">Methodology</b> from the menu (top right) for the good-job threshold rationale and plain-language definitions of every term.</p>
+        <section class="gji-step" data-eyebrow="Please Give Feedback!" data-title="This is a beta" data-spotlight="feedback">
+          <p class="gji-lead gji-lead-lg">The Good Jobs Index is new and still evolving. If something's unclear, looks off, or you wish it did more, tell us! The <b>Give Feedback</b> button is always in the bottom-right corner.</p>
+          <p class="gji-note">Want the full picture?</p>
+          <div class="gji-links">
+            <a class="gji-link" href="methodology.html">Read the Methodology</a>
+            <a class="gji-link" href="about.html#team">Meet the research team</a>
+          </div>
         </section>
       </div>
 
@@ -114,6 +129,11 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="gji-pointer" id="gjiPointer" aria-hidden="true">
+    <span>Right here</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v15"/><path d="M5 13l7 7 7-7"/></svg>
   </div>
 
   <button class="gji-reopen" id="gjiReopen" aria-label="Replay the how-to-use guide">

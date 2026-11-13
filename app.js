@@ -22,10 +22,13 @@ const CONFIG = {
   },
 
   // Your personal / research site, linked from the About page.
-  websiteUrl: "https://example.com",
+  websiteUrl: "https://jasmine-hill.com",
 
-  // Countdown target on the About page: the next CPS data release.
-  // Set this to the real date when you know it.
+  // Data clock on the About page. This is the date the Census Bureau released
+  // the newest CPS data. While the date is in the future the page counts down
+  // to it; once it has passed, the page counts UP, showing how long the new
+  // data has been out without the index being refreshed. After each refresh,
+  // set this to the next expected release (mid-September each year).
   nextUpdate: "2026-09-15T00:00:00",
 };
 
@@ -215,13 +218,8 @@ function buildCountdown() {
   const target = new Date(CONFIG.nextUpdate).getTime();
 
   function render() {
-    const diff = target - Date.now();
-    if (diff <= 0) {
-      el.innerHTML = `<div class="count-cell" style="min-width:auto">
-        <div class="count-num" style="font-size:1.3rem">New data is in</div>
-        <div class="count-lab">refresh coming soon</div></div>`;
-      return;
-    }
+    // Before the release date: time remaining. After it: time elapsed.
+    const diff = Math.abs(target - Date.now());
     const days = Math.floor(diff / 86400000);
     const hrs  = Math.floor((diff % 86400000) / 3600000);
     const mins = Math.floor((diff % 3600000) / 60000);
@@ -301,6 +299,8 @@ function buildGuide() {
   var dotsWrap= document.getElementById('gjiDots');
   var closeBtn= document.getElementById('gjiClose');
   var reopen  = document.getElementById('gjiReopen');
+  var navVideo = document.getElementById('gjiNavVideo');
+  var navItems = Array.prototype.slice.call(overlay.querySelectorAll('#gjiControls li'));
   var i = 0, lastFocus = null;
   var SEEN = 'gji_guide_seen_v1';
 
@@ -320,7 +320,37 @@ function buildGuide() {
     title.textContent   = steps[i].dataset.title;
     backBtn.hidden = (i===0);
     nextBtn.textContent = (i===steps.length-1) ? 'Start exploring' : 'Next';
+    syncExtras();
   }
+
+  // Step-specific extras: play the navigation clip only while its step is
+  // showing, and on the feedback step lift the real Give Feedback button
+  // above the dimmed backdrop with an arrow pointing at it.
+  function syncExtras(){
+    var isOpen = !overlay.hidden;
+    if(navVideo){
+      var onNav = isOpen && steps[i].contains(navVideo);
+      if(onNav){
+        try{ navVideo.currentTime = 0; }catch(e){}
+        var p = navVideo.play(); if(p && p.catch) p.catch(function(){});
+      } else { navVideo.pause(); }
+    }
+    var spot = isOpen && steps[i].dataset.spotlight === 'feedback';
+    document.body.classList.toggle('gji-spot-feedback', !!spot);
+  }
+  if(navVideo){
+    navVideo.addEventListener('timeupdate', function(){
+      var t = navVideo.currentTime;
+      navItems.forEach(function(li){
+        li.classList.toggle('is-live', t >= parseFloat(li.dataset.from) && t < parseFloat(li.dataset.to));
+      });
+    });
+  }
+  // Clicking the spotlighted Give Feedback button closes the guide so the
+  // feedback form (which sits beneath the guide) is usable right away.
+  document.addEventListener('click', function(e){
+    if(document.body.classList.contains('gji-spot-feedback') && e.target.closest && e.target.closest('.fab')) close();
+  });
   function go(n){ i = Math.max(0, Math.min(steps.length-1, n)); render(); }
 
   function open(){
@@ -335,6 +365,8 @@ function buildGuide() {
     overlay.classList.remove('is-open');
     document.removeEventListener('keydown', onKey);
     try{ localStorage.setItem(SEEN,'1'); }catch(e){}
+    document.body.classList.remove('gji-spot-feedback');
+    if(navVideo) navVideo.pause();
     setTimeout(function(){ overlay.hidden = true; }, 300);
     if(lastFocus && lastFocus.focus) lastFocus.focus();
   }
