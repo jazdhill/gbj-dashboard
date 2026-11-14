@@ -447,3 +447,7 @@ body.gji-spot-feedback .gji-pointer{ display:flex; }
   .team-card{ grid-template-columns:1fr; }
   .team-photo{ width:120px; height:120px; }
 }
+
+/* What's Inside: alternate amber and white page names for visual rhythm */
+.gji-map li:nth-child(odd) b{ color:var(--gji-amber); }
+.gji-map li:nth-child(odd):before{ background:var(--gji-amber); color:var(--gji-navy-deep); }

@@ -6,7 +6,7 @@
    ========================================================================= */
 const CONFIG = {
   // What the site is called (used in page titles and the About/Methodology copy).
-  siteName: "Good Jobs Dashboard",
+  siteName: "Good Jobs Index",
 
   // Where feedback goes: submitted invisibly to this Google Form (visitors
   // never leave the page), which forwards each response to the Trello board
