@@ -29,7 +29,7 @@ const CONFIG = {
   // to it; once it has passed, the page counts UP, showing how long the new
   // data has been out without the index being refreshed. After each refresh,
   // set this to the next expected release (mid-September each year).
-  nextUpdate: "2026-09-15T00:00:00",
+  nextUpdate: "2027-09-14T00:00:00",  // expected; Census has not announced the 2027 date
 };
 
 /* ---- The dashboard's info-circle icon, as inline SVG ------------------ */
