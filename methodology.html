@@ -220,6 +220,7 @@ body[data-page="methodology"] { background: #fff; }
       <li><a href="#college-optional">Defining college-optional</a></li>
       <li><a href="#sources">Data sources</a></li>
       <li><a href="#estimates">How we build the estimates</a></li>
+      <li><a href="#acs">Job-level pages and the American Community Survey</a></li>
       <li><a href="#reliability">Reliability and the respondent filter</a></li>
       <li><a href="#across-years">What changes across years</a></li>
       <li><a href="#inflation">Inflation adjustment</a></li>
@@ -242,7 +243,7 @@ body[data-page="methodology"] { background: #fff; }
   <p>That principle explains most of the methodological choices that follow, including the one readers ask about most, which is why our threshold is set as high as it is.</p>
 
   <h2 id="good-job">Defining a good job</h2>
-  <p>We define a good job as an occupation whose full-time pay meets or exceeds the median household income for that year and geography. In 2025 that is $83,730 nationally and $100,600 in California.</p>
+  <p>We define a good job as an occupation whose full-time pay meets or exceeds the median household income for that year and geography. In the 2025 edition that is $83,586 nationally and $100,007 in California.</p>
   <p>We set the bar high on purpose. One job should be enough to live well, so we ask whether a single worker can earn what a typical household earns, without relying on a second income to get there. Because the benchmark is a median, at least half of households already clear it. That makes it an observed, real-world standard rather than a modeled or arbitrary one, and it carries a built-in interpretation: a worker who reaches it has reached a standard the typical household actually attains.</p>
 
   <h3>Why household income rather than personal earnings</h3>
@@ -269,16 +270,17 @@ body[data-page="methodology"] { background: #fff; }
         <tr><th scope="col">Year</th><th scope="col">United States</th><th scope="col">California</th></tr>
       </thead>
       <tbody>
-        <tr><th scope="row">2025</th><td class="num">$83,730</td><td class="num">$100,600</td></tr>
-        <tr><th scope="row">2015</th><td class="num">$56,516</td><td class="num">$63,640</td></tr>
-        <tr><th scope="row">2005</th><td class="num">$46,242</td><td class="num">$51,760</td></tr>
-        <tr><th scope="row">1995</th><td class="num">$34,076</td><td class="num">$37,010</td></tr>
-        <tr><th scope="row">1985</th><td class="num">$23,620</td><td class="num">$26,980</td></tr>
-        <tr><th scope="row">1976</th><td class="num">$14,960</td><td class="num">$15,480</td></tr>
+        <tr><th scope="row">2026</th><td class="num">$87,285</td><td class="num">$100,009</td></tr>
+        <tr><th scope="row">2025</th><td class="num">$83,586</td><td class="num">$100,007</td></tr>
+        <tr><th scope="row">2015</th><td class="num">$53,595</td><td class="num">$60,001</td></tr>
+        <tr><th scope="row">2005</th><td class="num">$44,097</td><td class="num">$49,180</td></tr>
+        <tr><th scope="row">1995</th><td class="num">$32,140</td><td class="num">$35,147</td></tr>
+        <tr><th scope="row">1985</th><td class="num">$22,260</td><td class="num">$25,020</td></tr>
+        <tr><th scope="row">1976</th><td class="num">$11,700</td><td class="num">$12,119</td></tr>
       </tbody>
     </table>
   </div>
-  <p>Two notes on this table. The 2025 figures are the most recent published medians, which cover calendar year 2024. And the 1976 California figure is the median household income for the West census region, because state-level medians are not available that far back.</p>
+  <p>Three notes on this table. We calculate every threshold ourselves from the same Current Population Survey files as the trend data, as the median income across households, so that the bar and the jobs measured against it come from one source and one method. Our figures can differ slightly from the medians the Census Bureau publishes. Each year's figure reflects income earned in the prior calendar year, because that is what the survey asks about: the 2025 threshold is median household income for 2024. And the thresholds are not rounded, so a job whose median pay is exactly $100,000 falls just short of a $100,007 bar.</p>
 
   <h2 id="college-optional">Defining college-optional</h2>
   <p>A college-optional job is an occupation in which fewer than half of workers hold a bachelor's degree. We use the share of workers who actually hold a degree rather than the credential an employer says it prefers, because the first describes who is really in the job and the second describes who an employer says they want.</p>
@@ -292,10 +294,10 @@ body[data-page="methodology"] { background: #fff; }
         <tr><th scope="col">Component</th><th scope="col">Data vintage</th><th scope="col">Source</th></tr>
       </thead>
       <tbody>
-        <tr><td>Worker earnings, demographics, education, union status, health coverage, occupation</td><td>1976, 1985, 1995, 2005, 2015, 2025</td><td><a href="https://cps.ipums.org/cps/">IPUMS CPS</a>, Current Population Survey Annual Social and Economic Supplement</td></tr>
-        <tr><td>U.S. median household income</td><td>Per year listed above</td><td>U.S. Census Bureau, Current Population Reports, P60 series</td></tr>
-        <tr><td>California median household income</td><td>1985 to 2024</td><td><a href="https://fred.stlouisfed.org/series/MEHOINUSCAA646N">FRED series MEHOINUSCAA646N</a>, Federal Reserve Bank of St. Louis</td></tr>
-        <tr><td>California median household income, 1976</td><td>1976</td><td>U.S. Census Bureau, P60-107 (West region)</td></tr>
+        <tr><td>Trends over time: worker earnings, demographics, education, occupation</td><td>1976, 1985, 1995, 2005, 2015, 2025, 2026</td><td><a href="https://cps.ipums.org/cps/">IPUMS CPS</a>, Current Population Survey Annual Social and Economic Supplement</td></tr>
+        <tr><td>Job-level pages (Good Jobs, Race and Gender Inequality, Job Explorer): worker earnings, demographics, education, employer health coverage, occupation</td><td>2024 (shown as the 2025 edition)</td><td><a href="https://usa.ipums.org/usa/">IPUMS USA</a>, American Community Survey 1-year sample</td></tr>
+        <tr><td>Union coverage by occupation</td><td>2023 to 2025, pooled</td><td><a href="https://www.unionstats.com/">Unionstats</a> (Hirsch, Macpherson, and Even), national rates from the CPS Outgoing Rotation Groups</td></tr>
+        <tr><td>U.S. and California median household income (good-job thresholds)</td><td>Per year listed above</td><td>Calculated from IPUMS CPS ASEC household records</td></tr>
         <tr><td>Inflation adjustment</td><td>Through 2024</td><td><a href="https://www.bls.gov/cpi/research-series/r-cpi-u-rs-home.htm">BLS Consumer Price Index research series, R-CPI-U-RS</a></td></tr>
         <tr><td>Living wage threshold, California</td><td>2025</td><td><a href="https://livingwage.mit.edu/">MIT Living Wage Calculator</a></td></tr>
         <tr><td>Typical entry education, prior experience, on-the-job training, employer-reported median wage</td><td>2024</td><td>BLS Occupational Employment and Wage Statistics (OEWS)</td></tr>
@@ -309,32 +311,48 @@ body[data-page="methodology"] { background: #fff; }
     </table>
   </div>
   <p class="citation">Please cite the underlying microdata as: Sarah Flood, Miriam King, Renae Rodgers, Steven Ruggles, J. Robert Warren, Daniel Backman, Etienne Breton, Grace Cooper, Julia A. Rivera Drew, Stephanie Richards, David Van Riper, and Kari C.W. Williams. IPUMS CPS: Version 13.0 [dataset]. Minneapolis, MN: IPUMS, 2025. <a href="https://doi.org/10.18128/D030.V13.0">https://doi.org/10.18128/D030.V13.0</a></p>
+  <p class="citation">American Community Survey microdata: Steven Ruggles, Sarah Flood, Matthew Sobek, and colleagues. IPUMS USA: Version 16.0 [dataset]. Minneapolis, MN: IPUMS. <a href="https://doi.org/10.18128/D010.V16.0">https://doi.org/10.18128/D010.V16.0</a>. Union coverage: Barry T. Hirsch, David A. Macpherson, and William E. Even, Union Membership, Coverage, and Earnings from the CPS, <a href="https://www.unionstats.com/">unionstats.com</a>.</p>
 
   <h2 id="estimates">How we build the estimates</h2>
   <ol class="steps">
     <li><strong>Restrict the sample.</strong> We keep respondents who are 18 or older and who worked full time, full year, meaning at least 35 hours per week for at least 50 weeks in the prior calendar year. The Good Jobs Index is a measure of what full-time work pays, so part-year and part-time workers are outside its scope.</li>
     <li><strong>Assign each worker to an occupation.</strong> We use the occupation of the longest job held in the prior calendar year, since that is the job the reported earnings correspond to. For the historical series we use a consistent 1990 occupational basis so that occupations can be compared across fifty years. For the current-year detail in the Job Explorer we use the contemporary occupation coding, crosswalked to 2018 Standard Occupational Classification codes so that employer-reported information from OEWS and the Occupational Outlook Handbook can be attached.</li>
-    <li><strong>Apply survey weights.</strong> All counts and shares are weighted using the CPS ASEC person weight, so that estimates describe the population rather than the raw sample. Union estimates use the earnings weight instead, following IPUMS guidance, because that weight is constructed for questions about earnings and union status.</li>
+    <li><strong>Apply survey weights.</strong> All counts and shares are weighted using the CPS ASEC person weight, so that estimates describe the population rather than the raw sample.</li>
     <li><strong>Compute occupation-level figures.</strong> For each occupation in each year and geography, we calculate median earnings overall and for each demographic group, the number of workers, and the share of workers in each group.</li>
     <li><strong>Classify.</strong> Each occupation is compared against two thresholds. Its median earnings are compared against the median household income for that same year and geography, which makes it a good job or not. Its share of degree holders is compared against 50 percent, which makes it college-optional or not. The two are independent, so every occupation lands in one of four categories.</li>
   </ol>
 
   <div class="example">
     <h3>A worked example</h3>
-    <p>Suppose an occupation in 2025 has median full-time earnings of $88,000, and 30 percent of the people working in it hold a bachelor's degree. Its earnings clear the 2025 national threshold of $83,730, so it is a good job. Fewer than half of its workers hold a degree, so it is college-optional. It therefore appears in the good and college-optional group, which is the group the tool is centrally concerned with.</p>
-    <p>Now suppose the same occupation is examined in 2015. The relevant comparison is not $83,730. It is the 2015 national median household income of $56,516, compared against that occupation's 2015 median earnings. And the degree share is recalculated using 2015 workers. An occupation can therefore be a good college-optional job in one year and not in another, either because its pay moved relative to the national median or because its workforce credentialized.</p>
+    <p>Suppose an occupation in 2025 has median full-time earnings of $88,000, and 30 percent of the people working in it hold a bachelor's degree. Its earnings clear the 2025 national threshold of $83,586, so it is a good job. Fewer than half of its workers hold a degree, so it is college-optional. It therefore appears in the good and college-optional group, which is the group the tool is centrally concerned with.</p>
+    <p>Now suppose the same occupation is examined in 2015. The relevant comparison is not $83,586. It is the 2015 national threshold of $53,595, compared against that occupation's 2015 median earnings. And the degree share is recalculated using 2015 workers. An occupation can therefore be a good college-optional job in one year and not in another, either because its pay moved relative to the national median or because its workforce credentialized.</p>
   </div>
 
   <h3>What we do not do</h3>
   <ul>
     <li>We do not impute estimates for one demographic group from another. Every figure shown for a group is calculated from respondents in that group.</li>
     <li>We do not model or smooth occupation-level estimates. What you see is what the survey reports, weighted to population.</li>
-    <li>We do not use employer-reported wages to classify jobs as good or bad. Those figures appear in the Job Explorer for context, but classification always uses worker-reported CPS earnings.</li>
+    <li>We do not use employer-reported wages to classify jobs as good or bad. Those figures appear in the Job Explorer for context, but classification always uses worker-reported survey earnings: the Current Population Survey for trends over time and the American Community Survey for the job-level pages.</li>
   </ul>
 
+  <h2 id="acs">Job-level pages and the American Community Survey</h2>
+  <p>The Good Jobs Index draws on two surveys, each used for what it does best. Trends over time come from the Current Population Survey, the only source that reaches back to 1976. The pages that describe individual occupations today (Good Jobs, Race and Gender Inequality, and the Job Explorer) come from the American Community Survey (ACS).</p>
+  <p>We use the ACS for job-level detail because of its size. The 2024 ACS gives us about 1.15 million full-time, full-year workers nationally and about 130,000 in California, roughly twenty times what the CPS provides. With the CPS, fewer than three in four national occupations and fewer than one in four California occupations had at least 15 respondents. With the ACS, every national occupation and nearly nine in ten California occupations do. Pay estimates for small occupations, and for California in particular, are far more stable as a result. Where both surveys have adequate samples, their occupation medians agree closely.</p>
+  <p>What is the same: the full-time, full-year restriction (at least 35 usual hours per week and at least 50 weeks worked, age 18 and older), the occupation coding, the definition of college-optional, and the good-job thresholds, which remain the CPS-based median household incomes described above.</p>
+  <p>What differs:</p>
+  <ul>
+    <li><strong>Reference period.</strong> The ACS asks about the past 12 months and is collected throughout the year. We label the 2024 ACS as the 2025 edition so that it lines up with the CPS convention, in which the 2025 survey reports 2024 income.</li>
+    <li><strong>Occupation.</strong> The ACS records a worker's current or most recent job, where the CPS records the longest job held in the prior year.</li>
+    <li><strong>Earnings.</strong> We use total earnings from work, meaning wages plus self-employment income, so that occupations with many self-employed workers are measured fairly.</li>
+    <li><strong>Health coverage.</strong> The ACS measure counts anyone covered by an employer or union plan, including coverage through a family member's job. It runs higher than a measure limited to a worker's own employer.</li>
+    <li><strong>Union coverage.</strong> The ACS does not ask about unions. Union figures are published national rates of union contract coverage by occupation, pooled across 2023 to 2025. The same national rate is shown for California, because state-by-occupation rates are not published. Occupations with too few observations in the source are left blank. The megaphone symbol marks occupations where 20 percent or more of workers are covered.</li>
+    <li><strong>Race and ethnicity.</strong> Groups are single-race and non-Hispanic, with Latino workers of any race counted as Latino, matching the CPS approach as closely as the ACS categories allow.</li>
+  </ul>
+  <p>Job-level pages show the most recent ACS year available. The 2026 edition of these pages will be added when the Census Bureau releases the 2025 ACS. Until then, selecting 2026 on a job-level page shows the 2025 edition.</p>
+
   <h2 id="reliability">Reliability and the respondent filter</h2>
-  <p>The CPS is a sample survey, so estimates built on a small number of respondents carry more uncertainty than estimates built on many. This matters most in three places: California rather than national figures, since the state sample is smaller; smaller occupations; and demographic subgroups within an occupation, where geography, occupation, and group intersect and the underlying count can be very small even when the occupation overall is well covered.</p>
-  <p>Rather than impose a single cutoff, we let you set your own. The respondent filter controls the minimum number of unweighted survey respondents an occupation must have before it appears. Unweighted means the actual count of survey records, before population weights are applied. The default is 5.</p>
+  <p>Both surveys are samples, so estimates built on a small number of respondents carry more uncertainty than estimates built on many. This matters most in three places: California rather than national figures, since the state sample is smaller; the trend pages, which rely on the smaller CPS; smaller occupations; and demographic subgroups within an occupation, where geography, occupation, and group intersect and the underlying count can be very small even when the occupation overall is well covered.</p>
+  <p>Rather than impose a single cutoff, we let you set your own. The respondent filter controls the minimum number of unweighted survey respondents an occupation must have before it appears. Unweighted means the actual count of survey records, before population weights are applied. The default is 15. Occupations with fewer than 30 respondents are marked with a caution symbol.</p>
   <p>How to think about the setting:</p>
   <ul>
     <li><strong>30 or more.</strong> Estimates at this level are stable enough for general use and public reporting, and this is the conventional threshold used by federal statistical agencies. Fewer occupations appear, particularly in California and in earlier years.</li>
@@ -346,11 +364,11 @@ body[data-page="methodology"] { background: #fff; }
   <h2 id="across-years">What changes across years</h2>
   <p>Fifty years of survey data is not fifty years of identical questions. The following changes affect comparability, and we state them plainly rather than smoothing over them.</p>
   <p><strong>Earnings variable.</strong> From 1995 forward we use earnings from the longest job held in the prior year. For 1985 and 1976 that variable is not available, so we use wage and salary income.</p>
-  <p><strong>Race and ethnicity categories.</strong> For 2005 through 2025, Asian workers are identified separately. For 1995, Asian and Pacific Islander workers are combined into a single AAPI category. For 1985 and 1976, the survey does not distinguish Asian or Pacific Islander workers at all, and they fall into a broader Other category. Race-specific comparisons should not be run straight across all six years without noting this.</p>
+  <p><strong>Race and ethnicity categories.</strong> For 2005 through 2026, Asian workers are identified separately. For 1995, Asian and Pacific Islander workers are combined into a single AAPI category. For 1985 and 1976, the survey does not distinguish Asian or Pacific Islander workers at all, and they fall into a broader Other category. Race-specific comparisons should not be run straight across all years without noting this.</p>
   <p><strong>Educational attainment categories.</strong> From 1995 forward the categories are high school or less, some college, bachelor's degree, and master's degree or higher. For 1985 and 1976 the survey instead records years of college completed, giving high school or less, one to three years of college, four years of college, and five or more years of college. Our degree and non-degree groupings are constructed to be as consistent as possible across both schemes.</p>
-  <p><strong>Job quality variables.</strong> Union status is available from 1990 forward, so it does not appear for 1976. Health coverage is available from 1980 forward, so it does not appear for 1976 but does appear for 1985.</p>
+  <p><strong>Job quality variables.</strong> Union coverage and health coverage are shown on the job-level pages only, for the most recent year, and are not part of the historical series.</p>
   <p><strong>Sample size.</strong> The CPS sample has grown over time, so earlier years contain fewer respondents overall. You will see more occupations filtered out in 1976 and 1985 than in 2015 and 2025. That is the survey design showing through, not a gap in the analysis.</p>
-  <p><strong>California in 1976.</strong> State-level median household income is not published for 1976, so the 1976 California threshold uses the median for the West census region.</p>
+  <p><strong>California in 1976.</strong> The 1976 California threshold is calculated from the California households in that year's survey, a much smaller sample than in later years.</p>
 
   <h2 id="inflation">Inflation adjustment</h2>
   <p>By default, the tool does not adjust for inflation, and it does not need to. Each year's occupational earnings are compared against that same year's median household income. Both sides of the comparison are in that year's dollars, so the comparison is internally consistent. A 1976 job is measured against the 1976 standard of living, not against today's.</p>
@@ -381,11 +399,11 @@ body[data-page="methodology"] { background: #fff; }
   <p><strong>Pay is one dimension of job quality.</strong> Scheduling, stability, safety, autonomy, benefits, and advancement all matter, and a well-paying job can be a bad job on any of them. Earnings is the dimension we can measure consistently across every occupation and across fifty years. We use it because it is transparent and because it correlates strongly with the other dimensions of a decent life, including health, housing security, and stability, not because it is the whole story.</p>
   <p><strong>Occupation-level estimates carry uncertainty.</strong> The CPS is designed to produce reliable national and state estimates. Occupation-level figures, and especially demographic figures within occupations, sit below the level the survey was built for.</p>
   <p><strong>Earnings lag the survey year.</strong> CPS income questions ask about the prior calendar year, so earnings reflect labor market conditions one year behind the survey.</p>
-  <p><strong>The series is not continuous.</strong> We sample six points across fifty years rather than every year. Changes between them are real, but the tool cannot show what happened in between.</p>
+  <p><strong>The series is not continuous.</strong> We sample seven points across fifty years rather than every year. Changes between them are real, but the tool cannot show what happened in between.</p>
   <p><strong>Occupations are not perfectly stable objects.</strong> Consistent coding across fifty years requires grouping some occupations more coarsely than a contemporary classification would, and the content of a job can change even when its title does not.</p>
 
   <h2 id="version">Version history</h2>
-  <p><strong>Version 1.0, [LAUNCH DATE].</strong> Initial public release. United States and California, 1976 to 2025, using IPUMS CPS version 13.0. Thresholds set at the U.S. and California median household income for each year, with the California living wage available as an alternate threshold on selected pages.</p>
+  <p><strong>Version 1.0, [LAUNCH DATE].</strong> Initial public release. United States and California. Trends from 1976 to 2026 use IPUMS CPS; job-level pages use the 2024 American Community Survey from IPUMS USA, with union coverage from Unionstats. Thresholds are the U.S. and California median household income for each year, calculated from the CPS, with the California living wage available as an alternate threshold on selected pages.</p>
   <p>The Good Jobs Index is designed to update as new Current Population Survey data becomes available. When a release changes a threshold, a data source, or a definition, the change will be recorded here.</p>
 
   <h2 id="glossary">Glossary</h2>
